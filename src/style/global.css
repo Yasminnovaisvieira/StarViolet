@@ -1,0 +1,86 @@
+@import './variaveis.css'; /* Importando as variáveis de cores */
+
+@import url('https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html, body, #root {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    font-family: "Stack Sans Text", sans-serif;
+    background: var(--fundo-gradiente);
+    color: var(--branco);
+    -webkit-font-smoothing: antialiased;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.containerApp {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.conteudoPrincipal {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.containerInterno {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.cartaoPadrao {
+    background: var(--fundo-card);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+input, textarea, select {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--borda-transparente);
+    background: var(--fundo-input);
+    color: var(--texto-claro);
+    font-family: inherit;
+    font-size: 14px;
+}
+
+input::placeholder, 
+textarea::placeholder {
+    color: var(--texto-placeholder);
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}

@@ -1,0 +1,39 @@
+:root {
+    /* Paleta Principal */
+    --roxo-mais-escuro: #090210;
+    --roxo-escuro: #170629;
+    --roxo-medio: #1e0837;
+    --roxo-claro: #290b4a;
+    --roxo-mais-claro: #3d116c;
+    --roxo-bem-claro: #a653ff;
+
+    /* Cores Neutras e de Destaque */
+    --branco: #ffffff;
+    --accent: #ffcd00;
+
+    /* Cores de UI e Estado */
+    --cor-perigo: #ff6b6b;
+    --cor-sucesso: #4ade80;
+    --cor-pendente: var(--accent);
+
+    /* Cores de Fundo (Derivadas) */
+    --fundo-gradiente: linear-gradient(180deg, var(--roxo-mais-escuro) 0%, var(--roxo-escuro) 40%, var(--roxo-medio) 100%);
+    --fundo-card: rgba(255, 255, 255, 0.04);
+    --fundo-card-filme: rgba(0, 0, 0, 0.25);
+    --fundo-input: rgba(0, 0, 0, 0.15);
+    --fundo-transparente-leve: rgba(255, 255, 255, 0.03);
+    --fundo-transparente-medio: rgba(255, 255, 255, 0.06);
+
+    /* Cores de Texto (Derivadas) */
+    --texto-placeholder: rgba(255, 255, 255, 0.4);
+
+    /* Bordas e Sombras */
+    --borda-transparente: rgba(255, 255, 255, 0.08);
+    --sombra-padrao: rgba(0, 0, 0, 0.45);
+    --sombra-mais-escura: rgba(0, 0, 0, 0.7);
+
+    /* Gradientes Específicos */
+    --gradiente-cabecalho: linear-gradient(90deg, --roxo-escuro , --roxo-800: #170629);
+    --gradiente-carrossel: linear-gradient(90deg, rgba(10,5,20,0.6), rgba(40,8,80,0.2));
+    --gradiente-logo: linear-gradient(45deg, var(--roxo-700), var(--roxo-600));
+}

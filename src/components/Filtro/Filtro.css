@@ -1,0 +1,12 @@
+.filtro {
+    display: flex;
+    align-items: center;
+}
+
+.campoFiltro {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    min-width: 180px;
+}

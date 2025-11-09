@@ -1,0 +1,22 @@
+.rodape {
+    /* Borda do rodapé vinda de variável */
+    border-top: 1px solid var(--borda-transparente);
+    padding: 24px 0; /* Aumentei o padding */
+    margin-top: 32px; /* Aumentei a margem */
+    opacity: 0.9;
+    /* Garante que o rodapé esteja no container principal */
+    width: 100%;
+    align-self: center;
+}
+
+.rodapeInterno {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 28px; /* Adiciona padding lateral para alinhar com o conteúdo */
+}
+
+.linksRodape {
+    opacity: 0.8;
+    font-size: 14px;
+}

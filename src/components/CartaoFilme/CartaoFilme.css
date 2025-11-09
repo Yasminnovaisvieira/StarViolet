@@ -1,0 +1,37 @@
+.cartaoFilme {
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform .18s;
+    /* Sombra e fundo agora usam variáveis */
+    box-shadow: 0 6px 18px var(--sombra-padrao);
+    background: var(--fundo-card-filme);
+}
+
+.cartaoFilme:hover {
+    transform: translateY(-6px);
+}
+
+.poster {
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+}
+
+.infoCartao {
+    padding: 12px; /* Aumentei o padding */
+}
+
+.tituloCartao {
+    font-weight: 600;
+    margin-bottom: 6px;
+    /* Garante que o título não quebre o layout */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.metaCartao {
+    opacity: 0.8;
+    font-size: 13px;
+}

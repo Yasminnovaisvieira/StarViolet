@@ -1,0 +1,59 @@
+.paginaDetalhe {
+    display: grid;
+    grid-template-columns: 300px 1fr; /* Aumentei a largura do poster */
+    gap: 24px; /* Aumentei o gap */
+    align-items: start;
+}
+
+.posterDetalhe {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.tituloDetalhe {
+    font-size: 32px; /* Aumentei a fonte */
+}
+
+.sinopseDetalhe {
+    margin-top: 12px;
+    opacity: 0.95;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.metaDetalhe {
+    margin-top: 16px;
+    list-style: none;
+    padding: 0;
+    line-height: 1.7;
+}
+
+.botoesDetalhe {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+}
+
+.botaoEditar {
+    padding: 10px 16px; /* Aumentei o padding */
+    /* Cores do botão vêm das variáveis */
+    background: var(--texto-claro);
+    color: var(--roxo-800);
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+.botaoVoltar {
+    padding: 10px 16px;
+    border-radius: 8px;
+    /* Borda do botão vem da variável */
+    border: 1px solid var(--borda-transparente);
+    font-weight: 600;
+}
+
+/* Responsividade para a página de detalhe */
+@media (max-width:800px) {
+    .paginaDetalhe {
+        grid-template-columns: 1fr;
+    }
+}

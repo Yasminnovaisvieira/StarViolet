@@ -1,0 +1,229 @@
+.cabecalho {
+    background: var(--gradiente-cabecalho);
+    padding: 0.5rem 0;
+    border-bottom: 0.05rem solid var(--borda-transparente);
+}
+
+.cabecalhoInterno {
+    display: flex;
+    padding: 0 2rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.containerLogo {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    width: 3rem;
+    height: auto;
+}
+
+.logoTexto {
+    font-family: "Great Vibes", cursive;
+    letter-spacing: 0.2rem;
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--branco);
+    margin-top: 0.6rem;
+}
+
+.navPrincipal {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.listaNav {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0;
+    margin: 0;
+}
+
+.listaNav li {
+    display: inline-block;
+}
+
+.navItem {
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--branco);
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: color 0.3s ease;
+}
+
+.navItem::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 0.2rem;
+    background: var(--roxo-bem-claro);
+    transition: width 0.3s ease;
+}
+
+.navItem:hover::after {
+    width: 100%;
+}
+
+.navItem.ativo::after {
+    width: 100%;
+    background: var(--roxo-bem-claro);
+}
+
+.navItem:hover,
+.navItem.ativo {
+    color: var(--roxo-bem-claro);
+}
+
+.iconeUsuario {
+    width: 2rem;
+}
+
+.usuarioArea {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.containerNomeAdmin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+    gap: 0.2rem;
+}
+
+.nomeUsuario {
+    font-size: 1rem;
+}
+
+.botaoAdmin,
+.botaoSair {
+    position: relative;
+    padding: 0.5rem 0.75rem;
+    color: var(--branco);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    background: none;
+    overflow: hidden;
+    transition: color 0.3s ease;
+}
+
+.botaoLoginIcone {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.125rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    color: var(--texto-claro);
+    text-decoration: none;
+    overflow: hidden;
+    transition: color 0.3s ease;
+}
+
+.botaoLoginIcone::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 0.15rem;
+    background: var(--roxo-bem-claro);
+    transition: width 0.3s ease;
+}
+
+.botaoLoginIcone:hover::after,
+.botaoLoginIcone.ativo::after {
+  width: 100%;
+}
+
+.botaoLoginIcone.ativo::after {
+    width: 100%;
+    background: var(--roxo-bem-claro);
+}
+
+.botaoLoginIcone:hover,
+.botaoLoginIcone.ativo {
+    color: var(--roxo-bem-claro);
+}
+
+.iconeLogin {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--branco);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.botaoLoginIcone:hover .iconeLogin,
+.botaoLoginIcone.ativo .iconeLogin {
+    filter: brightness(1.4) hue-rotate(20deg);
+    transform: scale(1.1);
+}
+
+.botaoSair {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.botaoAdmin::after,
+.botaoSair::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 0.15rem;
+    background: var(--roxo-bem-claro);
+    transition: width 0.3s ease;
+}
+
+.botaoAdmin:hover::after,
+.botaoSair:hover::after {
+    width: 100%;
+}
+
+.botaoAdmin.ativo::after {
+    width: 100%;
+    background: var(--roxo-bem-claro);
+}
+
+.botaoAdmin:hover,
+.botaoSair:hover,
+.botaoAdmin.ativo {
+    color: var(--roxo-bem-claro);
+}
+
+.iconeLogout {
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.botaoLoginIcone:hover .iconeLogin,
+.botaoLoginIcone.ativo .iconeLogin {
+    filter: brightness(1.3);
+    transform: scale(1.1);
+}

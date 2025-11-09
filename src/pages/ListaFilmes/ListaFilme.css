@@ -1,0 +1,40 @@
+.areaFiltros {
+    margin-bottom: 20px; /* Aumentei a margem */
+    display: flex;
+    flex-wrap: wrap; /* Permite que os filtros quebrem a linha em telas menores */
+    gap: 12px;
+}
+
+.campoBusca {
+    flex: 2; /* Ocupa mais espaço */
+    min-width: 200px;
+    /* Estilos vêm do global.css */
+}
+
+.campoSelect {
+    flex: 1; /* Ocupa menos espaço */
+    min-width: 150px;
+    /* Estilos vêm do global.css */
+}
+
+.gradeLista {
+    display: grid;
+    /* Mudei para 5 colunas para aproveitar melhor o espaço */
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 16px; /* Aumentei o gap */
+}
+
+/* Ajustes de responsividade para a grade */
+@media (max-width:1000px) {
+    .gradeLista {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+}
+
+@media (max-width:600px) {
+    .gradeLista {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}

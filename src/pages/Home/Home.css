@@ -1,0 +1,15 @@
+.paginaHome {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Garante que o carrossel ocupe toda a largura da viewport */
+.secaoCarrossel {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    overflow: hidden;
+}

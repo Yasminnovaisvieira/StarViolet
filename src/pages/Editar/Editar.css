@@ -1,0 +1,4 @@
+/* Esta página reutiliza todos os estilos do formulário de Adicionar
+  para manter a consistência visual.
+*/
+@import '../Adicionar/Adicionar.css';
