@@ -1,12 +1,59 @@
-.filtro {
+.containerFiltros {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
     display: flex;
     align-items: center;
 }
 
-.campoFiltro {
-    padding: 8px 12px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    min-width: 180px;
+.filtroInputBusca {
+    flex: 2;
+    min-width: 200px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--borda-transparente);
+    background: var(--fundo-input);
+    color: var(--branco);
+    font-size: 0.9rem;
+}
+
+.filtroSelect {
+    flex: 1;
+    min-width: 150px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--borda-transparente);
+    background: var(--fundo-input);
+    color: var(--branco);
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.filtroInputBusca::placeholder {
+    color: var(--texto-placeholder);
+}
+
+.filtroSelect option {
+    color: var(--preto);
+    background: var(--branco);
+}
+
+.botaoLimparFiltro {
+    flex-basis: 100%;
+    max-width: 150px;
+    margin-left: auto;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    background-color: var(--fundo-transparente-medio);
+    color: var(--branco);
+    font-weight: 600;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.botaoLimparFiltro:hover {
+    background-color: var(--branco);
+    color: var(--roxo-mais-escuro);
+    transform: scale(1.02);
 }

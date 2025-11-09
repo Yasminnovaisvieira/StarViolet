@@ -1,0 +1,45 @@
+.secaoCategorias {
+    width: 100%;
+}
+
+.secaoCategorias .tituloSecao {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.listaHorizontalCategorias {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 1.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--roxo-mais-claro) var(--fundo-card);
+}
+
+.itemListaCategoria {
+    flex-shrink: 0;
+    width: 180px;
+}
+
+.listaHorizontalCategorias::-webkit-scrollbar {
+    height: 12px;
+}
+
+.listaHorizontalCategorias::-webkit-scrollbar-track {
+    background: var(--fundo-card);
+    border-radius: 10px;
+    margin: 0 2rem;
+}
+
+.listaHorizontalCategorias::-webkit-scrollbar-thumb {
+    background-color: var(--roxo-mais-claro);
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.listaHorizontalCategorias::-webkit-scrollbar-thumb:hover {
+    background-color: var(--roxo-bem-claro);
+}

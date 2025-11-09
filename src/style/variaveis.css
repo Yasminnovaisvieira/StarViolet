@@ -7,7 +7,8 @@
     --roxo-mais-claro: #3d116c;
     --roxo-bem-claro: #a653ff;
 
-    /* Cores Neutras e de Destaque */
+    /* Cores Neutras */
+    --preto: #000000;
     --branco: #ffffff;
     --accent: #ffcd00;
 
@@ -23,14 +24,23 @@
     --fundo-input: rgba(0, 0, 0, 0.15);
     --fundo-transparente-leve: rgba(255, 255, 255, 0.03);
     --fundo-transparente-medio: rgba(255, 255, 255, 0.06);
+    --fundo-gradiente-ficcao: linear-gradient(180deg, #030a1a 0%, #061330 100%);
+    --fundo-gradiente-drama: linear-gradient(180deg, #1a0316 0%, #280522 100%);
+    --fundo-gradiente-romance: linear-gradient(180deg, #10031a 0%, #1f0631 100%);
+    --fundo-gradiente-terror: linear-gradient(180deg, #000000 0%, #2c2c2c 100%);
+    --fundo-gradiente-aventura: linear-gradient(180deg, #030d0f 0%, #092428 100%);
+    --fundo-gradiente-fantasia: linear-gradient(180deg, #180505 0%, #2c0909 100%);
+    --fundo-gradiente-suspense: linear-gradient(180deg, #060303 0%, #281414 100%);
+    --fundo-gradiente-comedia: linear-gradient(180deg, #120d00 0%, #241a00 100%);
 
-    /* Cores de Texto (Derivadas) */
-    --texto-placeholder: rgba(255, 255, 255, 0.4);
+    /* Cores de Texto */
+    --texto-placeholder: rgba(255, 255, 255, 0.631);
 
     /* Bordas e Sombras */
     --borda-transparente: rgba(255, 255, 255, 0.08);
     --sombra-padrao: rgba(0, 0, 0, 0.45);
     --sombra-mais-escura: rgba(0, 0, 0, 0.7);
+    --sombra-bem-escura: rgba(0, 0, 0, 0.816);
 
     /* Gradientes Específicos */
     --gradiente-cabecalho: linear-gradient(90deg, --roxo-escuro , --roxo-800: #170629);

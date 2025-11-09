@@ -13,7 +13,6 @@ export default function Login({ setAuth }) {
     // Dados mocados de usuários. Em um app real, viria de uma API.
     const usuarios = [
         { email: 'admin@filminis.com', senha: 'admin123', nome: 'Admin', role: 'admin' },
-        { email: 'user@filminis.com', senha: 'user123', nome: 'Usuário', role: 'user' }
     ];
 
     // Função de envio do formulário

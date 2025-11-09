@@ -66,13 +66,13 @@ h1, h2, h3, h4 {
 }
 
 input, textarea, select {
-    padding: 10px 12px;
-    border-radius: 8px;
+    padding: 1rem;
+    border-radius: 0.5rem;
     border: 1px solid var(--borda-transparente);
     background: var(--fundo-input);
     color: var(--texto-claro);
-    font-family: inherit;
-    font-size: 14px;
+    font-family: "Stack Sans Text", sans-serif;
+    font-size: 1rem;
 }
 
 input::placeholder, 

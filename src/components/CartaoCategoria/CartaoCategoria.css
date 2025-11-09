@@ -1,0 +1,43 @@
+.cartaoCategoria {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    border-radius: 0.7rem;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    text-decoration: none;
+    color: var(--branco);
+    transition: transform 0.2s ease;
+    box-shadow: 0 4px 12px var(--sombra-bem-escura);
+}
+
+.cartaoCategoria:hover {
+    transform: scale(1.02);
+}
+
+.peliculaCategoria {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--sombra-mais-escura);
+    z-index: 1;
+    transition: background-color 0.2s;
+}
+
+.cartaoCategoria:hover .peliculaCategoria {
+    background: var(--sombra-bem-escura);
+}
+
+.tituloCategoria {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 1rem;
+    z-index: 2;
+}

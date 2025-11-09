@@ -1,0 +1,40 @@
+.secaoFilmes {
+    width: 100%;
+}
+
+.tituloSecao {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.listaHorizontal {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 1.5rem;
+}
+
+.itemLista {
+    flex-shrink: 0;
+    width: 220px;
+}
+
+.listaHorizontal {
+    scrollbar-width: thin;
+    scrollbar-color: var(--roxo-mais-claro) transparent;
+}
+
+.listaHorizontal::-webkit-scrollbar {
+    height: 8px;
+}
+
+.listaHorizontal::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.listaHorizontal::-webkit-scrollbar-thumb {
+    background-color: var(--roxo-mais-claro);
+    border-radius: 10px;
+}
