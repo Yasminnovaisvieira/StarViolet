@@ -5,6 +5,7 @@
     gap: 0.7rem;
     display: flex;
     align-items: center;
+    box-shadow: 0 4px 12px var(--sombra-bem-escura);
 }
 
 .filtroInputBusca {

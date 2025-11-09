@@ -1,72 +1,141 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+/* Importando CSS */
 import './Adicionar.css';
 
-// Página para Adicionar um novo filme
-export default function Adicionar({ onAdd }) {
-    const navigate = useNavigate();
-    // Estado para controlar os dados do formulário
-    const [form, setForm] = useState({ 
-        titulo: '', ano: '', genero: '', diretor: '', 
-        atores: '', sinopse: '', poster: '' 
-    });
-    // Estado para mensagens de erro de validação
-    const [erro, setErro] = useState('');
+/* Importando Modal e Botao */
+import Modal from '../../components/Modal/Modal';
+import Botao from '../../components/Botao/Botao';
 
-    // Função genérica para atualizar o estado do formulário
+/* Importando Imagem Preta */
+import imgPreta from "../../assets/ImagensCategorias/imgPreta.png"
+
+function Adicionar({ onAdd, isAdmin = false }) {
+    const navigate = useNavigate();
+
+    const [form, setForm] = useState({
+        titulo: '', ano: '', genero: '', diretor: '',
+        atores: '', sinopse: '', poster: ''
+    });
+
+    /* Estado único para controlar o modal */
+    const [modal, setModal] = useState({
+        isOpen: false,
+        type: 'info',
+        title: '',
+        message: ''
+    });
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm(prev => ({ ...prev, [name]: value }));
     };
 
-    // Validação simples antes do envio 
+    /* Validação simples antes do envio */
     const validarForm = () => {
         if (!form.titulo || !form.ano || !form.genero) {
-            setErro('Título, Ano e Gênero são campos obrigatórios.');
+            setModal({ isOpen: true, type: 'error', title: 'Erro de Validação', message: 'Título, Ano e Gênero são campos obrigatórios.' });
             return false;
         }
-        setErro('');
         return true;
     };
 
-    // Função de envio do formulário
-    const submit = (e) => { 
-        e.preventDefault(); 
-        // Se a validação falhar, interrompe o envio
-        if (!validarForm()) return; 
+    /* Função de envio do formulário */
+    const submit = (e) => {
+        e.preventDefault();
+        if (!validarForm()) return;
 
-        // Poster placeholder se o campo estiver vazio
-        const posterFinal = form.poster || 'https://images.unsplash.com/photo-1517602302552-471fe67acf66?w=800&q=80';
-        
-        // Chama a função 'onAdd' (do App.jsx) com os dados do form
-        // O App.jsx cuidará de adicionar o status 'pendente'
-        onAdd({ ...form, poster: posterFinal }); 
-        
-        // Navega de volta para a lista de filmes
-        navigate('/filmes'); 
+        const posterFinal = form.poster || imgPreta;
+        onAdd({ ...form, poster: posterFinal });
+
+        /* Mensagem diferenciada conforme o tipo de usuário */
+        const mensagem = isAdmin
+            ? 'Filme adicionado com sucesso.'
+            : 'O filme foi enviado para análise e aguarda aprovação do administrador.';
+
+        setModal({
+            isOpen: true,
+            type: 'success',
+            title: 'Filme Adicionado!',
+            message: mensagem
+        });
+    };
+
+    /* Função chamada quando o modal é fechado */
+    const handleCloseModal = () => {
+        const modalType = modal.type;
+
+        /* Fecha o modal */
+        setModal({ isOpen: false, type: 'info', title: '', message: '' });
+
+        /* Se o modal que fechamos era o de 'sucesso', navega para a lista */
+        if (modalType === 'success') {
+            navigate('/filmes');
+        }
     };
 
     return (
-        <form onSubmit={submit} className="formFilme cartaoPadrao">
-            <h3>Adicionar novo filme</h3>
-            
-            {/* Campos do formulário */}
-            <div className="gridCampos">
-                <input name="titulo" placeholder="Título *" value={form.titulo} onChange={handleChange} />
-                <input name="ano" placeholder="Ano *" value={form.ano} onChange={handleChange} />
-                <input name="genero" placeholder="Gênero *" value={form.genero} onChange={handleChange} />
-                <input name="diretor" placeholder="Diretor" value={form.diretor} onChange={handleChange} />
-                <input name="atores" placeholder="Atores (separados por vírgula)" value={form.atores} onChange={handleChange} />
-                <input name="poster" placeholder="URL do poster" value={form.poster} onChange={handleChange} />
-                <textarea name="sinopse" placeholder="Sinopse" value={form.sinopse} onChange={handleChange} />
-            </div>
+        <div className='formulario'>
+            <form onSubmit={submit} className="formFilme cartaoPadrao">
+                <h3 className='tituloFormulario'>Adicionar Novo Filme</h3>
 
-            {/* Exibe a mensagem de erro, se houver */}
-            {erro && <div className="mensagemErro">{erro}</div>}
+                <div className="gridCampos">
+                    <div className='ladoALado'>
+                        <div className="campoMetade">
+                            <label htmlFor="titulo">Título *</label>
+                            <input id="titulo" name="titulo" placeholder="Ex: Duna: Parte 2" value={form.titulo} onChange={handleChange} />
+                        </div>
 
-            <div className="acoesForm">
-                <button type="submit" className="botaoSalvar">Salvar</button>
-            </div>
-        </form>
+                        <div className="campoMetade">
+                            <label htmlFor="ano">Ano *</label>
+                            <input id="ano" name="ano" placeholder="Ex: 2024" value={form.ano} onChange={handleChange} />
+                        </div>
+                    </div>
+
+                    <div className='ladoALado'>
+                        <div className="campoMetade">
+                            <label htmlFor="genero">Gênero *</label>
+                            <input id="genero" name="genero" placeholder="Ex: Ficção" value={form.genero} onChange={handleChange} />
+                        </div>
+
+                        <div className="campoMetade">
+                            <label htmlFor="diretor">Diretor</label>
+                            <input id="diretor" name="diretor" placeholder="Ex: Denis Villeneuve" value={form.diretor} onChange={handleChange} />
+                        </div>
+                    </div>
+
+                    <div className='ladoALado'>
+                        <div className="campoMetade">
+                            <label htmlFor="atores">Atores (separados por vírgula)</label>
+                            <input id="atores" name="atores" placeholder="Ex: Timothée Chalamet, Zendaya" value={form.atores} onChange={handleChange} />
+                        </div>
+
+                        <div className="campoMetade">
+                            <label htmlFor="poster">URL do poster</label>
+                            <input id="poster" name="poster" placeholder="http://..." value={form.poster} onChange={handleChange} />
+                        </div>
+                    </div>
+
+                    <div className="campoFullWidth">
+                        <label htmlFor="sinopse">Sinopse</label>
+                        <textarea id="sinopse" name="sinopse" placeholder="Descreva o filme..." value={form.sinopse} onChange={handleChange} />
+                    </div>
+                </div>
+
+                <div className="acoesForm">
+                    {/* Botão Cancelar */}
+                    <Botao type="button" classe="botaoCancelar" onClick={() => navigate(-1)}> Cancelar </Botao>
+
+                    {/* Botão Salvar */}
+                    <Botao type="submit" classe="botaoSalvar"> Salvar </Botao>
+                </div>
+            </form>
+
+            {/* Modal */}
+            <Modal isOpen={modal.isOpen} onClose={handleCloseModal} title={modal.title} message={modal.message} type={modal.type} />
+        </div>
     );
 }
+
+export default Adicionar;

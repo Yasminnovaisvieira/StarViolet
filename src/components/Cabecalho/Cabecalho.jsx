@@ -23,8 +23,7 @@ function Cabecalho({ auth, setAuth }) {
     return (
         <header className="cabecalho">
             <div className="cabecalhoInterno">
-                {/* Logotipo */}
-                <Link to="/" className="containerLogo" aria-label="Página inicial - StarViolet">
+                <Link to="/home" className="containerLogo" aria-label="Página inicial - StarViolet">
                     <figure className="logoContainer">
                         <img src={Logo} alt="Logo - StarViolet" className="logo" />
                     </figure>
@@ -34,7 +33,7 @@ function Cabecalho({ auth, setAuth }) {
                 {/* Navegação principal */}
                 <nav className="navPrincipal" aria-label="Navegação principal">
                     <ul className="listaNav">
-                        <li><NavLink to="/" aria-label="Início da plataforma" className={({ isActive }) => isActive ? "navItem ativo" : "navItem"}>Início</NavLink></li>
+                        <li><NavLink to="/home" aria-label="Início da plataforma" className={({ isActive }) => isActive ? "navItem ativo" : "navItem"}>Início</NavLink></li>
                         <li><NavLink to="/filmes" aria-label="Catálogo com todos os filmes" className={({ isActive }) => isActive ? "navItem ativo" : "navItem"}>Catálogo</NavLink></li>
                         <li><NavLink to="/adicionar" aria-label="Adicionar novo filme" className={({ isActive }) => isActive ? "navItem ativo" : "navItem"}>Adicionar Novo Filme</NavLink></li>
                     </ul>
@@ -61,6 +60,9 @@ function Cabecalho({ auth, setAuth }) {
                             </Botao>
                         </div>
                     ) : (
+                        // Este trecho não deve mais ser renderizado aqui, 
+                        // pois o Cabecalho só existe para usuários logados,
+                        // mas deixamos por segurança.
                         < NavLink to="/login" className={({ isActive }) => isActive ? "botaoLoginIcone ativo" : "botaoLoginIcone"} aria-label="Fazer login" >
                             <img src={IconUser} alt="Ícone de usuário" className="iconeUsuario iconeLogin" />
                             <span>Login</span>

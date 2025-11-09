@@ -6,22 +6,23 @@
     --roxo-claro: #290b4a;
     --roxo-mais-claro: #3d116c;
     --roxo-bem-claro: #a653ff;
+    --roxo-bem-mais-claro: #c286ff;
 
     /* Cores Neutras */
     --preto: #000000;
     --branco: #ffffff;
-    --accent: #ffcd00;
 
-    /* Cores de UI e Estado */
-    --cor-perigo: #ff6b6b;
+    /* Cores de Estado */
+    --cor-perigo: #ff3a3a;
     --cor-sucesso: #4ade80;
-    --cor-pendente: var(--accent);
+    --cor-pendente: #ffcd00;
 
     /* Cores de Fundo (Derivadas) */
     --fundo-gradiente: linear-gradient(180deg, var(--roxo-mais-escuro) 0%, var(--roxo-escuro) 40%, var(--roxo-medio) 100%);
     --fundo-card: rgba(255, 255, 255, 0.04);
     --fundo-card-filme: rgba(0, 0, 0, 0.25);
     --fundo-input: rgba(0, 0, 0, 0.15);
+    --fundo-transparente-mais-leve: rgba(255, 255, 255, 0.119);
     --fundo-transparente-leve: rgba(255, 255, 255, 0.03);
     --fundo-transparente-medio: rgba(255, 255, 255, 0.06);
     --fundo-gradiente-ficcao: linear-gradient(180deg, #030a1a 0%, #061330 100%);

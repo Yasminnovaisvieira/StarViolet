@@ -70,7 +70,7 @@ input, textarea, select {
     border-radius: 0.5rem;
     border: 1px solid var(--borda-transparente);
     background: var(--fundo-input);
-    color: var(--texto-claro);
+    color: var(--branco);
     font-family: "Stack Sans Text", sans-serif;
     font-size: 1rem;
 }
@@ -81,6 +81,6 @@ textarea::placeholder {
 }
 
 textarea {
-    min-height: 120px;
-    resize: vertical;
+    min-height: 150px;
+    resize: none;
 }

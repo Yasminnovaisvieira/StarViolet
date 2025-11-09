@@ -1,51 +1,87 @@
-/* Este CSS é reutilizado pela página de Edição */
+.formulario {
+    margin-top: 4rem;
+}
+
+.formulario input,
+.formulario textarea {
+    width: 100%;
+}
+
 .formFilme {
     display: flex;
     flex-direction: column;
-    gap: 16px; /* Aumentei o gap */
-    max-width: 800px; /* Limitei a largura do form */
-    margin: 0 auto; /* Centralizei */
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px var(--sombra-bem-escura);
+}
+
+.tituloFormulario {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.ladoALado {
+    display: flex;
+    width: 100%;
+    gap: 1.5rem;
+}
+
+.campoMetade {
+    flex: 1;
+}
+
+.formFilme label {
+    display: block;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.7rem;
 }
 
 .gridCampos {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-/* Os inputs e textareas já são estilizados globalmente em global.css */
-
-.gridCampos textarea {
-    /* Faz a sinopse ocupar a largura total */
-    grid-column: 1 / -1; 
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .acoesForm {
     display: flex;
-    gap: 10px;
-    justify-content: flex-end; /* Alinha o botão à direita */
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    border-top: 1px solid var(--borda-transparente);
+    padding-top: 1.5rem;
 }
 
 .botaoSalvar {
-    padding: 10px 18px;
-    background: var(--texto-claro);
-    color: var(--roxo-800);
-    border-radius: 8px;
+    padding: 1rem 2.3rem;
+    background: var(--branco);
+    color: var(--roxo-mais-escuro);
+    border-radius: 0.5rem;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 1rem;
+    transition: transform 0.2s, background-color 0.2s;
 }
 
-/* Estilo para a mensagem de erro de validação */
-.mensagemErro {
-    color: var(--cor-perigo);
-    background: rgba(255, 107, 107, 0.1);
-    border: 1px solid var(--cor-perigo);
-    padding: 10px;
-    border-radius: 8px;
+.botaoSalvar:hover {
+    transform: scale(1.02);
 }
 
-@media (max-width:800px) {
-    .gridCampos {
-        grid-template-columns: 1fr;
-    }
+.botaoCancelar {
+    padding: 1rem 1.5rem;
+    background: var(--fundo-transparente-mais-leve); 
+    color: var(--branco);
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: transform 0.2s, background-color 0.2s;
+    border: 1px solid transparent;
+}
+
+.botaoCancelar:hover {
+    border: 1px solid var(--branco);
+    background: var(--fundo-transparente-leve); 
+    transform: scale(1.02);
 }

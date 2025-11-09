@@ -17,7 +17,7 @@ function Filtro({ filtros, onFiltroChange, opcoes, onLimparFiltros }) {
         ));
     };
 
-    const algumFiltroAtivo = Object.values(filtros).some(valor => valor !== '');
+    const algumFiltroAtivo = Object.entries(filtros).some(([chave, valor]) => chave !== 'genero' && valor !== '');
 
     return (
         <div className="containerFiltros cartaoPadrao">

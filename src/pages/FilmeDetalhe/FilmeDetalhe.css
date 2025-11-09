@@ -1,59 +1,88 @@
 .paginaDetalhe {
+    margin-top: 3.5rem;
     display: grid;
-    grid-template-columns: 300px 1fr; /* Aumentei a largura do poster */
-    gap: 24px; /* Aumentei o gap */
+    grid-template-columns: 300px 1fr;
+    gap: 3rem;
     align-items: start;
 }
 
 .posterDetalhe {
     width: 100%;
-    border-radius: 8px;
+    border-radius: 0.5rem;
 }
 
 .tituloDetalhe {
-    font-size: 32px; /* Aumentei a fonte */
+    font-size: 2.5rem;
+}
+
+.avisoPendente {
+    background-color: var(--cor-pendente);
+    color: var(--roxo-escuro);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
 }
 
 .sinopseDetalhe {
-    margin-top: 12px;
-    opacity: 0.95;
-    font-size: 16px;
+    margin-top: 0.6rem;
+    font-size: 1.1rem;
     line-height: 1.6;
 }
 
 .metaDetalhe {
-    margin-top: 16px;
+    margin-top: 1rem;
+    display: flex;
+    gap: 3rem;
     list-style: none;
     padding: 0;
     line-height: 1.7;
+    font-size: 1.1rem;
+}
+
+.sinopseDetalhe strong,
+.metaDetalhe li strong {
+    font-size: 1rem;
 }
 
 .botoesDetalhe {
-    margin-top: 20px;
+    border-top: 1px solid var(--borda-transparente);
+    padding-top: 1.2rem;
+    margin-top: 1.3rem;
     display: flex;
-    gap: 12px;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
 }
 
 .botaoEditar {
-    padding: 10px 16px; /* Aumentei o padding */
-    /* Cores do botão vêm das variáveis */
-    background: var(--texto-claro);
-    color: var(--roxo-800);
-    border-radius: 8px;
+    padding: 1rem 2.3rem;
+    background: var(--branco);
+    color: var(--roxo-mais-escuro);
+    border-radius: 0.5rem;
     font-weight: 700;
+    font-size: 1rem;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.botaoEditar:hover {
+    transform: scale(1.02);
 }
 
 .botaoVoltar {
-    padding: 10px 16px;
-    border-radius: 8px;
-    /* Borda do botão vem da variável */
-    border: 1px solid var(--borda-transparente);
+    padding: 1rem 2.2rem;
+    background: var(--fundo-transparente-mais-leve); 
+    color: var(--branco);
+    border-radius: 0.5rem;
     font-weight: 600;
+    font-size: 1rem;
+    transition: transform 0.2s, background-color 0.2s;
+    border: 1px solid transparent;
 }
 
-/* Responsividade para a página de detalhe */
-@media (max-width:800px) {
-    .paginaDetalhe {
-        grid-template-columns: 1fr;
-    }
+.botaoVoltar:hover {
+    border: 1px solid var(--branco);
+    background: var(--fundo-transparente-leve); 
+    transform: scale(1.02);
 }

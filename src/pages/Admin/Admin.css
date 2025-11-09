@@ -1,7 +1,11 @@
+/* Importando CSS's que serão reutilizados */
+@import '../FilmeDetalhe/FilmeDetalhe.css';
+@import '../../components/Filtro/Filtro.css';
+
 .paginaAdmin {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.5rem;
 }
 
 .cabecalhoAdmin {
@@ -10,49 +14,60 @@
 }
 
 .cabecalhoAdmin h3 {
-    font-size: 24px;
-    margin-bottom: 16px;
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
-/* Estilos da Navegação interna do Admin (Abas) */
 .navAdmin {
     display: flex;
-    gap: 12px;
+    gap: 1.5rem;
 }
 
 .navAdmin a {
-    padding: 8px 14px;
-    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
     background: var(--fundo-transparente-medio);
-    color: var(--texto-claro);
+    color: var(--branco);
     opacity: 0.7;
+    text-decoration: none;
+    font-weight: 600;
 }
 
 .navAdmin a.active {
-    background: var(--texto-claro);
-    color: var(--roxo-800);
+    background: var(--branco);
+    color: var(--roxo-escuro);
     font-weight: 700;
     opacity: 1;
 }
 
-/* Estilos da lista de filmes (reutilizada nas duas abas) */
+.areaFiltrosAdmin {
+    margin-bottom: 2rem;
+}
+
 .listaAdmin {
     display: grid;
-    gap: 12px;
+    gap: 1rem;
+}
+
+.mensagemNenhumPendente {
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    text-align: center;
 }
 
 .itemAdmin {
     display: flex;
-    gap: 16px;
+    gap: 1rem;
     align-items: center;
-    padding: 12px; /* Padding menor para itens de lista */
+    padding: 1rem;
 }
 
 .miniPosterAdmin {
-    width: 60px;
-    height: 90px;
+    width: 7rem;
+    height: 7rem;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 0.5rem;
 }
 
 .infoAdmin {
@@ -63,41 +78,86 @@
     font-weight: 600;
 }
 .metaAdmin {
-    font-size: 14px;
+    font-size: 0.9rem;
     opacity: 0.8;
 }
 
 .statusPendente {
     color: var(--cor-pendente);
     font-weight: 600;
-    font-size: 13px;
-    margin-top: 4px;
+    font-size: 1rem;
+    margin-top: 0.3rem;
 }
 
 .acoesAdmin {
     display: flex;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
-/* Botões de Ação do Admin */
 .botaoEditarAdmin,
 .botaoExcluir,
-.botaoAprovar {
-    padding: 8px 12px;
-    border-radius: 8px;
+.botaoAprovar,
+.botaoAnalisar,
+.botaoVerDetalhes {
+    padding: 1rem;
+    border-radius: 0.5rem;
     font-weight: 600;
-    color: var(--texto-claro);
+    color: var(--branco);
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
 }
 
 .botaoEditarAdmin {
     background: var(--fundo-transparente-medio);
 }
+.botaoEditarAdmin:hover {
+    background: var(--fundo-transparente-leve);
+}
+
+.botaoVerDetalhes {
+    background: var(--roxo-mais-claro);
+}
+.botaoVerDetalhes:hover {
+    background: var(--roxo-bem-claro);
+    color: var(--roxo-escuro);
+}
 
 .botaoExcluir {
     background: var(--cor-perigo);
 }
+.botaoExcluir:hover {
+    opacity: 0.8;
+}
 
 .botaoAprovar {
     background: var(--cor-sucesso);
+    color: var(--roxo-escuro);
+}
+.botaoAprovar:hover {
+    opacity: 0.8;
+}
+
+.botaoAnalisar {
+    background: var(--cor-pendente);
+    color: var(--roxo-escuro);
+}
+.botaoAnalisar:hover {
+    opacity: 0.8;
+}
+
+.botoesDetalhe .botaoAprovar.admin,
+.botoesDetalhe .botaoExcluir.admin {
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 1rem 2.3rem;
+}
+
+.avisoPendente.admin {
+    text-align: center;
+    background-color: var(--cor-pendente);
     color: var(--roxo-escuro);
 }

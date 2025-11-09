@@ -1,68 +1,133 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+
+/* Importando CSS */
 import './Login.css';
 
-// Página de Login
-export default function Login({ setAuth }) {
+/* Importando Componente Botão */
+import Botao from '../../components/Botao/Botao';
+
+/* Importando Assets */
+import Logo from "../../../public/logoStarViolet.svg";
+
+const mockApiLogin = (email, senha) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const usuarios = [
+                { email: 'admin@filminis.com', senha: 'admin123', nome: 'Admin', role: 'admin' },
+                { email: 'user@filminis.com', senha: 'user123', nome: 'Usuário', role: 'user' },
+            ];
+            
+            const u = usuarios.find(u => u.email === email && u.senha === senha);
+
+            if (u) {
+                const { senha, ...usuarioLogado } = u;
+                resolve(usuarioLogado);
+            } else {
+                reject(new Error('Credenciais inválidas. Verifique seu e-mail e senha.'));
+            }
+        }, 1000);
+    });
+};
+
+function Login({ setAuth }) {
     const navigate = useNavigate();
-    // Estado para o formulário de login
     const [form, setForm] = useState({ email: '', senha: '' });
-    // Estado para mensagens de erro
     const [erro, setErro] = useState('');
+    
+    const [isLoading, setIsLoading] = useState(false);
 
-    // Dados mocados de usuários. Em um app real, viria de uma API.
-    const usuarios = [
-        { email: 'admin@filminis.com', senha: 'admin123', nome: 'Admin', role: 'admin' },
-    ];
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm(prev => ({ ...prev, [name]: value }));
+    };
 
-    // Função de envio do formulário
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
-        setErro(''); // Limpa erros anteriores
+        setErro('');
+        setIsLoading(true);
 
-        // Procura o usuário na lista mocada
-        const u = usuarios.find(u => u.email === form.email && u.senha === form.senha);
+        try {
+            /* * INTEGRAÇÃO BACKEND (Exemplo)
+             * Aqui você faria a chamada para sua API Python:
+             *
+             * const response = await fetch('https://sua-api.com/login', {
+             * method: 'POST',
+             * headers: { 'Content-Type': 'application/json' },
+             * body: JSON.stringify(form)
+             * });
+             *
+             * const data = await response.json();
+             *
+             * if (!response.ok) {
+             * // Se a API retornar um erro (401, 400, etc.)
+             * throw new Error(data.message || 'Falha no login');
+             * }
+             *
+             * // Se o login for bem-sucedido, 'data' deve ser o objeto do usuário
+             * setAuth({ isAutenticado: true, usuario: data });
+             * navigate('/home'); // Redireciona para a Home
+             */
+            
+            const usuarioLogado = await mockApiLogin(form.email, form.senha);
 
-        // Se não encontrar, mostra erro 
-        if (!u) {
-            setErro('Credenciais inválidas. Tente "admin@filminis.com" ou "user@filminis.com"');
-            return;
+            setAuth({ isAutenticado: true, usuario: usuarioLogado });
+
+            navigate('/home');
+
+        } catch (err) {
+            setErro(err.message);
+        } finally {
+            setIsLoading(false);
         }
-
-        // Se encontrar, atualiza o estado de autenticação (no App.jsx)
-        setAuth({ isAutenticado: true, usuario: u });
-
-        // Redireciona para a Home
-        navigate('/');
     };
 
     return (
-        <div className="paginaLogin cartaoPadrao">
-            <h3>Entrar</h3>
-            <form onSubmit={submit} className="formLogin">
-                <input
-                    placeholder="Email"
-                    type="email"
-                    value={form.email}
-                    onChange={e => setForm({ ...form, email: e.target.value })}
-                    required
-                />
-                <input
-                    placeholder="Senha"
-                    type="password"
-                    value={form.senha}
-                    onChange={e => setForm({ ...form, senha: e.target.value })}
-                    required
-                />
-
-                {/* Exibe mensagem de erro */}
-                {erro && <div className="erroLogin">{erro}</div>}
-
-                <div className="acoesLogin">
-                    {/* Reutiliza o estilo .botaoSalvar do Adicionar.css */}
-                    <button type="submit" className="botaoSalvar">Entrar</button>
+        <div className="paginaLoginContainer"> 
+            <div className="paginaLogin cartaoPadrao">
+                <div className='containerLogoLogin'>
+                    <figure className="logoContainer">
+                        <img src={Logo} alt="Logo - StarViolet" className="logoLogin" />
+                    </figure>
+                    <h3 className="tituloLogin">StarViolet</h3>
                 </div>
-            </form>
+                
+                <form onSubmit={submit} className="formLogin">
+                    <div className="campoLogin">
+                        <label htmlFor="email">Email</label>
+                        <input id="email" name="email" placeholder="user@filminis.com" type="email" value={form.email} onChange={handleChange} required disabled={isLoading}/>
+                    </div>
+                    
+                    <div className="campoLogin">
+                        <label htmlFor="senha">Senha</label>
+                        <input
+                            id="senha"
+                            name="senha"
+                            placeholder="••••••••"
+                            type="password"
+                            value={form.senha}
+                            onChange={handleChange}
+                            required
+                            disabled={isLoading}
+                        />
+                    </div>
+
+                    {/* Exibe mensagem de erro da API */}
+                    {erro && <div className="erroLogin">{erro}</div>}
+
+                    <div className="acoesLogin">
+                        <Botao type="submit" classe="botaoSalvar" disabled={isLoading}>
+                            {isLoading ? 'Entrando...' : 'Entrar'}
+                        </Botao>
+                    </div>
+                </form>
+
+                <div className="linkCadastro">
+                    Não tem uma conta? <Link to="/cadastro">Cadastre-se aqui</Link>
+                </div>
+            </div>
         </div>
     );
 }
+
+export default Login;
