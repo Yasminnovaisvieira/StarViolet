@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 /* Importando CSS */
 import './Login.css';
@@ -14,8 +14,8 @@ const mockApiLogin = (email, senha) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             const usuarios = [
-                { email: 'admin@filminis.com', senha: 'admin123', nome: 'Admin', role: 'admin' },
-                { email: 'user@filminis.com', senha: 'user123', nome: 'Usuário', role: 'user' },
+                { email: 'admin@starviolet.com', senha: 'admin123', nome: 'Admin', role: 'admin' },
+                { email: 'user@starviolet.com', senha: 'user123', nome: 'Usuário', role: 'user' },
             ];
             
             const u = usuarios.find(u => u.email === email && u.senha === senha);
@@ -121,10 +121,6 @@ function Login({ setAuth }) {
                         </Botao>
                     </div>
                 </form>
-
-                <div className="linkCadastro">
-                    Não tem uma conta? <Link to="/cadastro">Cadastre-se aqui</Link>
-                </div>
             </div>
         </div>
     );

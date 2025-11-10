@@ -8,7 +8,6 @@ import FilmeDetalhe from './pages/FilmeDetalhe/FilmeDetalhe';
 import Adicionar from './pages/Adicionar/Adicionar';
 import Editar from './pages/Editar/Editar';
 import Login from './pages/Login/Login';
-import Cadastro from './pages/Cadastro/Cadastro';
 import Admin from './pages/Admin/Admin';
 
 /* Componentes */
@@ -104,14 +103,6 @@ export default function App() {
                         auth.isAutenticado
                             ? <Navigate to="/home" /> // Se já estiver logado, vai para /home
                             : <Login setAuth={setAuth} />
-                    }
-                />
-
-                <Route path="/cadastro"
-                    element={
-                        auth.isAutenticado
-                            ? <Navigate to="/home" />
-                            : <Cadastro setAuth={setAuth} />
                     }
                 />
 
