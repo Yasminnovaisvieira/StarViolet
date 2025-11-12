@@ -8,9 +8,6 @@ import './Adicionar.css';
 import Modal from '../../components/Modal/Modal';
 import Botao from '../../components/Botao/Botao';
 
-/* Importando Imagem Preta */
-import imgPreta from "../../assets/ImagensCategorias/imgPreta.png"
-
 /* Lista de gêneros para o select */
 const generosLista = [
     'Ficção', 'Drama', 'Romance', 'Terror', 'Aventura', 'Fantasia', 'Suspense', 'Comédia'
@@ -25,20 +22,20 @@ function Adicionar({ onAdd, isAdmin = false }) {
         atores: '', sinopse: '', poster: ''
     });
 
-    /* Estado único para controlar o modal */
     const [modal, setModal] = useState({
         isOpen: false,
         type: 'info',
         title: '',
         message: ''
     });
+    
+    const [idNovoFilme, setIdNovoFilme] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm(prev => ({ ...prev, [name]: value }));
     };
 
-    /* Validação simples antes do envio */
     const validarForm = () => {
         if (!form.titulo || !form.ano || !form.genero) {
             setModal({ isOpen: true, type: 'error', title: 'Erro de Validação', message: 'Título, Ano e Gênero são campos obrigatórios.' });
@@ -48,34 +45,43 @@ function Adicionar({ onAdd, isAdmin = false }) {
     };
 
     /* Função de envio do formulário */
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
         if (!validarForm()) return;
 
-        onAdd(form);
+        try {
+            const novoFilme = await onAdd(form);
+            setIdNovoFilme(novoFilme.id);
 
-        /* Mensagem diferenciada conforme o tipo de usuário */
-        const mensagem = isAdmin
-            ? 'Filme adicionado com sucesso.'
-            : 'O filme foi enviado para análise e aguarda aprovação do administrador.';
+            const mensagem = isAdmin
+                ? 'Filme adicionado com sucesso.'
+                : 'O filme foi enviado para análise e aguarda aprovação do administrador.';
 
-        setModal({
-            isOpen: true,
-            type: 'success',
-            title: 'Filme Adicionado!',
-            message: mensagem
-        });
+            setModal({
+                isOpen: true,
+                type: 'success',
+                title: 'Filme Adicionado!',
+                message: mensagem
+            });
+
+        } catch (err) {
+            setModal({
+                isOpen: true,
+                type: 'error',
+                title: 'Erro no Servidor',
+                message: `Não foi possível adicionar o filme. ${err.message}`
+            });
+        }
     };
 
     /* Função chamada quando o modal é fechado */
     const handleCloseModal = () => {
         const modalType = modal.type;
-
-        /* Fecha o modal */
         setModal({ isOpen: false, type: 'info', title: '', message: '' });
 
-        /* Se o modal que fechamos era o de 'sucesso', navega para a lista */
-        if (modalType === 'success') {
+        if (modalType === 'success' && idNovoFilme) {
+            navigate(`/filmes/${idNovoFilme}`);
+        } else if (modalType === 'success') {
             navigate('/filmes');
         }
     };
@@ -83,6 +89,7 @@ function Adicionar({ onAdd, isAdmin = false }) {
     return (
         <div className='formulario'>
             <form onSubmit={submit} className="formFilme cartaoPadrao">
+                {/* ... (O restante do formulário JSX continua igual) ... */}
                 <h3 className='tituloFormulario'>Adicionar Novo Filme</h3>
 
                 <div className="gridCampos">

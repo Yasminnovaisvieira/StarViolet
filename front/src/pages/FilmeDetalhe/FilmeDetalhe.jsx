@@ -11,7 +11,7 @@ import Modal from '../../components/Modal/Modal';
 function FilmeDetalhe({ filmes, isAdmin, onDelete }) {
     const { id } = useParams();
     const navigate = useNavigate();
-    const filme = filmes.find(f => f.id === id);
+    const filme = filmes.find(f => f.id === parseInt(id));
 
     /* Estado para controlar o modal */
     const [modal, setModal] = useState({
@@ -70,9 +70,12 @@ function FilmeDetalhe({ filmes, isAdmin, onDelete }) {
                 <div className="colunaInfo">
 
                     {/* Aviso de Status Pendente */}
-                    {filme.status === 'pendente' && (
+                    {(filme.status === 'pendente_adicao' || filme.status === 'pendente_edicao') && (
                         <div className="avisoPendente">
-                            Este filme está pendente de aprovação.
+                            {filme.status === 'pendente_adicao'
+                                ? 'Este filme está pendente de aprovação.'
+                                : 'Estas alterações estão pendentes de aprovação.'
+                            }
                         </div>
                     )}
 

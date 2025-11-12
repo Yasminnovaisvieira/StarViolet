@@ -17,7 +17,7 @@ function Editar({ filmes, onEdit, isAdmin = false }) {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const filmeOriginal = filmes.find(f => f.id === id);
+    const filmeOriginal = filmes.find(f => f.id === parseInt(id));
 
     /* Iniciando com os dados do Filme */
     const [form, setForm] = useState(filmeOriginal || {});

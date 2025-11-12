@@ -178,7 +178,7 @@ function AprovarPendencias({ filmes }) {
 function DetalheAprovacao({ filmes, onApprove, onReject }) {
     const { id } = useParams();
     const navigate = useNavigate();
-    const filme = filmes.find(f => f.id === id);
+    const filme = filmes.find(f => f.id === parseInt(id));
 
     /* Estado do Modal para Aprovação/Rejeição */
     const [modal, setModal] = useState({ isOpen: false, type: 'info', title: '', message: '' });
@@ -296,7 +296,9 @@ function Admin({ filmes, onDelete, onApprove }) {
 
     /* Separa os filmes entre aprovados e pendentes */
     const filmesAprovados = filmes.filter(f => f.status === 'aprovado');
-    const filmesPendentes = filmes.filter(f => f.status === 'pendente');
+    const filmesPendentes = filmes.filter(
+        f => f.status === 'pendente_adicao' || f.status === 'pendente_edicao'
+    );
 
     return (
         <div className="paginaAdmin">

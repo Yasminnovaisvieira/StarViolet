@@ -11,17 +11,18 @@ def find_or_create(cursor, table_name, name_column, name_value):
         result = cursor.fetchone()
         
         if result:
-            return result[id_column]
+            return result[0]
         else:
             # Cria se não existir
             cursor.execute(f"INSERT INTO {table_name} ({name_column}) VALUES (%s)", (name_value,))
             return cursor.lastrowid
     except Exception as e:
         print(f"Erro em find_or_create ({table_name}): {e}")
+        # Tenta de novo em caso de erro de concorrência (race condition)
         cursor.execute(f"SELECT {id_column} FROM {table_name} WHERE {name_column} = %s", (name_value,))
         result = cursor.fetchone()
         if result:
-            return result[id_column]
+            return result[0]
         return None
 
 
