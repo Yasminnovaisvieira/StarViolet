@@ -1,0 +1,62 @@
+.paginaLista {
+    margin-top: 2rem;
+}
+
+.areaFiltros {
+    margin: 2rem 0
+}
+
+.gradeLista {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 1.5rem;
+}
+
+.tituloSecaoFilmes {
+    font-size: 2rem;
+}
+
+.mensagemNenhum {
+    grid-column: 1 / -1; 
+    display: flex;
+    justify-content: center; 
+    width: 100%;
+    padding: 2rem 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    opacity: 0.7;
+    text-align: center;
+}
+
+.containerPaginacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+.infoPaginacao {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.botaoPaginacao {
+    padding: 0.8rem 1.2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    background-color: var(--fundo-transparente-leve);
+    color: var(--branco);
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+}
+
+.botaoPaginacao:hover:not(:disabled) {
+    background-color: var(--fundo-transparente-medio);
+}
+
+.botaoPaginacao:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}

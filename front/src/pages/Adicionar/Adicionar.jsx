@@ -1,22 +1,31 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 /* Importando CSS */
-import './Editar.css';
+import './Adicionar.css';
 
 /* Importando Modal e Botao */
 import Modal from '../../components/Modal/Modal';
 import Botao from '../../components/Botao/Botao';
 
-function Editar({ filmes, onEdit, isAdmin = false }) {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    
-    const filmeOriginal = filmes.find(f => f.id === id);
+/* Importando Imagem Preta */
+import imgPreta from "../../assets/ImagensCategorias/imgPreta.png"
 
-    /* Iniciando com os dados do Filme */
-    const [form, setForm] = useState(filmeOriginal || {});
-    
+/* Lista de gêneros para o select */
+const generosLista = [
+    'Ficção', 'Drama', 'Romance', 'Terror', 'Aventura', 'Fantasia', 'Suspense', 'Comédia'
+];
+
+function Adicionar({ onAdd, isAdmin = false }) {
+    const navigate = useNavigate();
+
+    const [form, setForm] = useState({
+        titulo: '', ano: '', genero: '', diretor: '',
+        produtora: '', 
+        atores: '', sinopse: '', poster: ''
+    });
+
+    /* Estado único para controlar o modal */
     const [modal, setModal] = useState({
         isOpen: false,
         type: 'info',
@@ -24,19 +33,12 @@ function Editar({ filmes, onEdit, isAdmin = false }) {
         message: ''
     });
 
-    /* Atualiza o formulário se o filme for encontrado (após a renderização) */
-    useEffect(() => { 
-        if (filmeOriginal) setForm(filmeOriginal); 
-    }, [filmeOriginal]);
-
-    /* Se o filme não existir, mostra mensagem */
-    if (!filmeOriginal) return <div className="cartaoPadrao">Filme não encontrado</div>;
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm(prev => ({ ...prev, [name]: value }));
     };
 
+    /* Validação simples antes do envio */
     const validarForm = () => {
         if (!form.titulo || !form.ano || !form.genero) {
             setModal({ isOpen: true, type: 'error', title: 'Erro de Validação', message: 'Título, Ano e Gênero são campos obrigatórios.' });
@@ -45,43 +47,44 @@ function Editar({ filmes, onEdit, isAdmin = false }) {
         return true;
     };
 
-    const submit = (e) => { 
-        e.preventDefault(); 
+    /* Função de envio do formulário */
+    const submit = (e) => {
+        e.preventDefault();
         if (!validarForm()) return;
 
-        onEdit(id, form); 
-        
-        /* Mensagem de sucesso condicional */
+        onAdd(form);
+
+        /* Mensagem diferenciada conforme o tipo de usuário */
         const mensagem = isAdmin
-            ? 'As alterações foram salvas com sucesso.'
-            : 'As alterações foram salvas e aguardam aprovação do administrador.';
+            ? 'Filme adicionado com sucesso.'
+            : 'O filme foi enviado para análise e aguarda aprovação do administrador.';
 
         setModal({
             isOpen: true,
             type: 'success',
-            title: 'Filme Atualizado!',
+            title: 'Filme Adicionado!',
             message: mensagem
         });
     };
 
-    /* Para navegar após o sucesso */
+    /* Função chamada quando o modal é fechado */
     const handleCloseModal = () => {
         const modalType = modal.type;
 
         /* Fecha o modal */
         setModal({ isOpen: false, type: 'info', title: '', message: '' });
 
-        /* Se o modal que fechamos era o de 'sucesso', navega para a página de detalhes */
+        /* Se o modal que fechamos era o de 'sucesso', navega para a lista */
         if (modalType === 'success') {
-            navigate(`/filmes/${id}`); 
+            navigate('/filmes');
         }
     };
 
     return (
         <div className='formulario'>
-            <form onSubmit={submit} className="formFilme cartaoPadrao"> 
-                <h3 className='tituloFormulario'>Editar filme: {filmeOriginal.titulo}</h3>
-                
+            <form onSubmit={submit} className="formFilme cartaoPadrao">
+                <h3 className='tituloFormulario'>Adicionar Novo Filme</h3>
+
                 <div className="gridCampos">
                     <div className='ladoALado'>
                         <div className="campoMetade">
@@ -98,7 +101,12 @@ function Editar({ filmes, onEdit, isAdmin = false }) {
                     <div className='ladoALado'>
                         <div className="campoMetade">
                             <label htmlFor="genero">Gênero *</label>
-                            <input id="genero" name="genero" placeholder="Ex: Ficção" value={form.genero} onChange={handleChange} />
+                            <select id="genero" name="genero" value={form.genero} onChange={handleChange}>
+                                <option value="">Selecione</option>
+                                {generosLista.map(g => (
+                                    <option key={g} value={g}>{g}</option>
+                                ))}
+                            </select>
                         </div>
 
                         <div className="campoMetade">
@@ -109,14 +117,19 @@ function Editar({ filmes, onEdit, isAdmin = false }) {
 
                     <div className='ladoALado'>
                         <div className="campoMetade">
-                            <label htmlFor="atores">Atores (separados por vírgula)</label>
-                            <input id="atores" name="atores" placeholder="Ex: Timothée Chalamet, Zendaya" value={form.atores} onChange={handleChange} />
+                            <label htmlFor="produtora">Produtora</label>
+                            <input id="produtora" name="produtora" placeholder="Ex: Disney" value={form.produtora} onChange={handleChange} />
                         </div>
 
                         <div className="campoMetade">
-                            <label htmlFor="poster">URL do poster</label>
-                            <input id="poster" name="poster" placeholder="http://..." value={form.poster} onChange={handleChange} />
+                            <label htmlFor="atores">Atores (separados por vírgula)</label>
+                            <input id="atores" name="atores" placeholder="Ex: Timothée Chalamet, Zendaya" value={form.atores} onChange={handleChange} />
                         </div>
+                    </div>
+
+                    <div className="campoFullWidth">
+                        <label htmlFor="poster">URL do poster</label>
+                        <input id="poster" name="poster" placeholder="http://..." value={form.poster} onChange={handleChange} />
                     </div>
 
                     <div className="campoFullWidth">
@@ -124,23 +137,20 @@ function Editar({ filmes, onEdit, isAdmin = false }) {
                         <textarea id="sinopse" name="sinopse" placeholder="Descreva o filme..." value={form.sinopse} onChange={handleChange} />
                     </div>
                 </div>
-                
+
                 <div className="acoesForm">
+                    {/* Botão Cancelar */}
                     <Botao type="button" classe="botaoCancelar" onClick={() => navigate(-1)}> Cancelar </Botao>
-                    <Botao type="submit" classe="botaoSalvar"> Salvar Alterações </Botao>
+
+                    {/* Botão Salvar */}
+                    <Botao type="submit" classe="botaoSalvar"> Salvar </Botao>
                 </div>
             </form>
 
             {/* Modal */}
-            <Modal
-                isOpen={modal.isOpen}
-                onClose={handleCloseModal}
-                title={modal.title}
-                message={modal.message}
-                type={modal.type}
-            />
+            <Modal isOpen={modal.isOpen} onClose={handleCloseModal} title={modal.title} message={modal.message} type={modal.type} />
         </div>
     );
 }
 
-export default Editar;
+export default Adicionar;

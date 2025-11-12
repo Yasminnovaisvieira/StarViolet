@@ -9,7 +9,6 @@ import Botao from '../Botao/Botao';
 function CartaoFilme({ filme }) {
     const navigate = useNavigate();
 
-    /* Ir para os detalhes do Filme */
     const irParaDetalhes = (e) => {
         e.stopPropagation();
         e.preventDefault();
@@ -18,8 +17,8 @@ function CartaoFilme({ filme }) {
 
     return (
         <div className="cartaoFilme">
-            <div className="posterWrapper" >
-                <div className="poster" style={{ backgroundImage: `url(${filme.poster})` }} />
+            <div className="posterWrapper">
+                <img src={filme.poster} alt={filme.titulo} className="poster"/>
             </div>
 
             <div className="infoCartao">

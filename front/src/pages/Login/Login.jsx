@@ -10,25 +10,8 @@ import Botao from '../../components/Botao/Botao';
 /* Importando Assets */
 import Logo from "../../../public/logoStarViolet.svg";
 
-const mockApiLogin = (email, senha) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const usuarios = [
-                { email: 'admin@starviolet.com', senha: 'admin123', nome: 'Admin', role: 'admin' },
-                { email: 'user@starviolet.com', senha: 'user123', nome: 'Usuário', role: 'user' },
-            ];
-            
-            const u = usuarios.find(u => u.email === email && u.senha === senha);
-
-            if (u) {
-                const { senha, ...usuarioLogado } = u;
-                resolve(usuarioLogado);
-            } else {
-                reject(new Error('Credenciais inválidas. Verifique seu e-mail e senha.'));
-            }
-        }, 1000);
-    });
-};
+/* Importando API */
+import apiClient from "../../api/apiClient"
 
 function Login({ setAuth }) {
     const navigate = useNavigate();
@@ -48,30 +31,13 @@ function Login({ setAuth }) {
         setIsLoading(true);
 
         try {
-            /* * INTEGRAÇÃO BACKEND (Exemplo)
-             * Aqui você faria a chamada para sua API Python:
-             *
-             * const response = await fetch('https://sua-api.com/login', {
-             * method: 'POST',
-             * headers: { 'Content-Type': 'application/json' },
-             * body: JSON.stringify(form)
-             * });
-             *
-             * const data = await response.json();
-             *
-             * if (!response.ok) {
-             * // Se a API retornar um erro (401, 400, etc.)
-             * throw new Error(data.message || 'Falha no login');
-             * }
-             *
-             * // Se o login for bem-sucedido, 'data' deve ser o objeto do usuário
-             * setAuth({ isAutenticado: true, usuario: data });
-             * navigate('/home'); // Redireciona para a Home
-             */
-            
-            const usuarioLogado = await mockApiLogin(form.email, form.senha);
+            const data = await apiClient.login(form.email, form.senha);
 
-            setAuth({ isAutenticado: true, usuario: usuarioLogado });
+            setAuth({
+                isAutenticado: true,
+                usuario: data.usuario,
+                token: data.access_token
+            });
 
             navigate('/home');
 

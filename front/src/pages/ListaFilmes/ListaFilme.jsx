@@ -8,6 +8,7 @@ import './ListaFilme.css';
 import CartaoFilme from '../../components/CartaoFilme/CartaoFilme';
 import SecaoCategorias from '../../components/SecaoCategorias/SecaoCategorias';
 import Filtro from '../../components/Filtro/Filtro';
+import Botao from '../../components/Botao/Botao';
 
 /* Importando Imagens */
 import imgFiccao from '../../assets/ImagensCategorias/ficcao.jpg';
@@ -70,6 +71,8 @@ const filtrosIniciais = {
     ator: ''
 };
 
+const ITENS_POR_PAGINA = 10;
+
 function ListaFilmes({ filmes }) {
     const location = useLocation();
     const generoInicial = location.state?.genero || '';
@@ -78,6 +81,8 @@ function ListaFilmes({ filmes }) {
         ...filtrosIniciais,
         genero: generoInicial,
     });
+
+    const [paginaAtual, setPaginaAtual] = useState(1);
 
     const opcoes = useMemo(() => ({
         generos: getUnicosSimples(filmes, 'genero'),
@@ -98,6 +103,7 @@ function ListaFilmes({ filmes }) {
 
     const handleFiltroChange = (e) => {
         const { name, value } = e.target;
+        setPaginaAtual(1);
         setFiltros(prev => ({
             ...prev,
             [name]: value
@@ -105,6 +111,7 @@ function ListaFilmes({ filmes }) {
     };
 
     const handleLimparFiltros = () => {
+        setPaginaAtual(1);
         setFiltros(filtrosIniciais);
     };
 
@@ -146,7 +153,7 @@ function ListaFilmes({ filmes }) {
         }
     }, [location.state]);
 
-    const filtrados = useMemo(() => {
+    const filmesFiltrados = useMemo(() => {
         return filmes.filter(f => {
             let atoresFilme = [];
             if (Array.isArray(f.atores)) {
@@ -165,6 +172,15 @@ function ListaFilmes({ filmes }) {
         });
     }, [filmes, filtros]);
 
+    const totalPaginas = Math.ceil(filmesFiltrados.length / ITENS_POR_PAGINA);
+
+    const filmesPaginados = useMemo(() => {
+        const inicio = (paginaAtual - 1) * ITENS_POR_PAGINA;
+        const fim = inicio + ITENS_POR_PAGINA;
+        return filmesFiltrados.slice(inicio, fim);
+    }, [filmesFiltrados, paginaAtual]);
+
+
     return (
         <div className="paginaLista">
             <SecaoCategorias titulo="Categorias" categorias={categorias} onTodosClick={handleLimparFiltros}/>
@@ -178,14 +194,39 @@ function ListaFilmes({ filmes }) {
             </h2>
 
             <div className="gradeLista">
-                {filtrados.length > 0 ? (
-                    filtrados.map(f => <CartaoFilme key={f.id} filme={f} />)
+                {filmesPaginados.length > 0 ? (
+                    filmesPaginados.map(f => <CartaoFilme key={f.id} filme={f} />)
                 ) : (
                     <div className="mensagemNenhum">
                         <p>Nenhum filme encontrado com esses filtros.</p>
                     </div>
                 )}
             </div>
+
+            {/* Controles de paginação */}
+            {totalPaginas > 1 && (
+                <div className="containerPaginacao">
+                    <Botao
+                        onClick={() => setPaginaAtual(p => p - 1)}
+                        disabled={paginaAtual === 1}
+                        classe="botaoPaginacao"
+                    >
+                        Anterior
+                    </Botao>
+                    
+                    <span className="infoPaginacao">
+                        Página {paginaAtual} de {totalPaginas}
+                    </span>
+
+                    <Botao
+                        onClick={() => setPaginaAtual(p => p + 1)}
+                        disabled={paginaAtual === totalPaginas}
+                        classe="botaoPaginacao"
+                    >
+                        Próximo
+                    </Botao>
+                </div>
+            )}
         </div>
     );
 }

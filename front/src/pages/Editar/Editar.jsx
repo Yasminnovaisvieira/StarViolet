@@ -1,31 +1,27 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 /* Importando CSS */
-import './Adicionar.css';
+import './Editar.css';
 
 /* Importando Modal e Botao */
 import Modal from '../../components/Modal/Modal';
 import Botao from '../../components/Botao/Botao';
-
-/* Importando Imagem Preta */
-import imgPreta from "../../assets/ImagensCategorias/imgPreta.png"
 
 /* Lista de gêneros para o select */
 const generosLista = [
     'Ficção', 'Drama', 'Romance', 'Terror', 'Aventura', 'Fantasia', 'Suspense', 'Comédia'
 ];
 
-function Adicionar({ onAdd, isAdmin = false }) {
+function Editar({ filmes, onEdit, isAdmin = false }) {
+    const { id } = useParams();
     const navigate = useNavigate();
 
-    const [form, setForm] = useState({
-        titulo: '', ano: '', genero: '', diretor: '',
-        produtora: '', 
-        atores: '', sinopse: '', poster: ''
-    });
+    const filmeOriginal = filmes.find(f => f.id === id);
 
-    /* Estado único para controlar o modal */
+    /* Iniciando com os dados do Filme */
+    const [form, setForm] = useState(filmeOriginal || {});
+
     const [modal, setModal] = useState({
         isOpen: false,
         type: 'info',
@@ -33,12 +29,19 @@ function Adicionar({ onAdd, isAdmin = false }) {
         message: ''
     });
 
+    /* Atualiza o formulário se o filme for encontrado (após a renderização) */
+    useEffect(() => {
+        if (filmeOriginal) setForm(filmeOriginal);
+    }, [filmeOriginal]);
+
+    /* Se o filme não existir, mostra mensagem */
+    if (!filmeOriginal) return <div className="cartaoPadrao">Filme não encontrado</div>;
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm(prev => ({ ...prev, [name]: value }));
     };
 
-    /* Validação simples antes do envio */
     const validarForm = () => {
         if (!form.titulo || !form.ano || !form.genero) {
             setModal({ isOpen: true, type: 'error', title: 'Erro de Validação', message: 'Título, Ano e Gênero são campos obrigatórios.' });
@@ -47,44 +50,42 @@ function Adicionar({ onAdd, isAdmin = false }) {
         return true;
     };
 
-    /* Função de envio do formulário */
     const submit = (e) => {
         e.preventDefault();
         if (!validarForm()) return;
 
-        const posterFinal = form.poster || imgPreta;
-        onAdd({ ...form, poster: posterFinal });
+        onEdit(id, form);
 
-        /* Mensagem diferenciada conforme o tipo de usuário */
+        /* Mensagem de sucesso condicional */
         const mensagem = isAdmin
-            ? 'Filme adicionado com sucesso.'
-            : 'O filme foi enviado para análise e aguarda aprovação do administrador.';
+            ? 'As alterações foram salvas com sucesso.'
+            : 'As alterações foram salvas e aguardam aprovação do administrador.';
 
         setModal({
             isOpen: true,
             type: 'success',
-            title: 'Filme Adicionado!',
+            title: 'Filme Atualizado!',
             message: mensagem
         });
     };
 
-    /* Função chamada quando o modal é fechado */
+    /* Para navegar após o sucesso */
     const handleCloseModal = () => {
         const modalType = modal.type;
 
         /* Fecha o modal */
         setModal({ isOpen: false, type: 'info', title: '', message: '' });
 
-        /* Se o modal que fechamos era o de 'sucesso', navega para a lista */
+        /* Se o modal que fechamos era o de 'sucesso', navega para a página de detalhes */
         if (modalType === 'success') {
-            navigate('/filmes');
+            navigate(`/filmes/${id}`);
         }
     };
 
     return (
         <div className='formulario'>
             <form onSubmit={submit} className="formFilme cartaoPadrao">
-                <h3 className='tituloFormulario'>Adicionar Novo Filme</h3>
+                <h3 className='tituloFormulario'>Editar filme: {filmeOriginal.titulo}</h3>
 
                 <div className="gridCampos">
                     <div className='ladoALado'>
@@ -118,19 +119,14 @@ function Adicionar({ onAdd, isAdmin = false }) {
 
                     <div className='ladoALado'>
                         <div className="campoMetade">
-                            <label htmlFor="produtora">Produtora</label>
-                            <input id="produtora" name="produtora" placeholder="Ex: Disney" value={form.produtora} onChange={handleChange} />
-                        </div>
-
-                        <div className="campoMetade">
                             <label htmlFor="atores">Atores (separados por vírgula)</label>
                             <input id="atores" name="atores" placeholder="Ex: Timothée Chalamet, Zendaya" value={form.atores} onChange={handleChange} />
                         </div>
-                    </div>
 
-                    <div className="campoFullWidth">
-                        <label htmlFor="poster">URL do poster</label>
-                        <input id="poster" name="poster" placeholder="http://..." value={form.poster} onChange={handleChange} />
+                        <div className="campoMetade">
+                            <label htmlFor="poster">URL do poster</label>
+                            <input id="poster" name="poster" placeholder="http://..." value={form.poster} onChange={handleChange} />
+                        </div>
                     </div>
 
                     <div className="campoFullWidth">
@@ -140,18 +136,21 @@ function Adicionar({ onAdd, isAdmin = false }) {
                 </div>
 
                 <div className="acoesForm">
-                    {/* Botão Cancelar */}
                     <Botao type="button" classe="botaoCancelar" onClick={() => navigate(-1)}> Cancelar </Botao>
-
-                    {/* Botão Salvar */}
-                    <Botao type="submit" classe="botaoSalvar"> Salvar </Botao>
+                    <Botao type="submit" classe="botaoSalvar"> Salvar Alterações </Botao>
                 </div>
             </form>
 
             {/* Modal */}
-            <Modal isOpen={modal.isOpen} onClose={handleCloseModal} title={modal.title} message={modal.message} type={modal.type} />
+            <Modal
+                isOpen={modal.isOpen}
+                onClose={handleCloseModal}
+                title={modal.title}
+                message={modal.message}
+                type={modal.type}
+            />
         </div>
     );
 }
 
-export default Adicionar;
+export default Editar;
