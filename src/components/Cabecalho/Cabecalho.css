@@ -1,5 +1,5 @@
 .cabecalho {
-    background: var(--gradiente-cabecalho);
+    background: var(--tema-cabecalho-fundo);
     padding: 0.5rem 0;
     border-bottom: 0.05rem solid var(--borda-transparente);
 }

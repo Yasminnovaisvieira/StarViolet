@@ -6,7 +6,9 @@ import './Rodape.css';
 /* Importando Logo */
 import Logo from "../../../public/LogoStarViolet.svg"
 
-function Rodape() {
+function Rodape({ auth }) {
+    const isAdmin = auth?.usuario?.role === 'admin';
+
     return (
         <footer className="rodape">
             <div className="rodapeGrid">
@@ -29,6 +31,10 @@ function Rodape() {
                         <li><Link to="/">Início</Link></li>
                         <li><Link to="/filmes">Catálogo</Link></li>
                         <li><Link to="/adicionar">Adicionar Filme</Link></li>
+
+                        {isAdmin && (
+                            <li><Link to="/admin">Área Administrativa</Link></li>
+                        )}
                     </ul>
                 </div>
 

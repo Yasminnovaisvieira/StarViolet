@@ -110,7 +110,8 @@ function ListaFilmes({ filmes }) {
 
     useEffect(() => {
         const body = document.body;
-        const fundoConfig = mapaFundos[filtros.genero] || mapaFundos.default;
+        const generoAtivo = filtros.genero;
+        const fundoConfig = mapaFundos[generoAtivo] || mapaFundos.default;
 
         body.style.backgroundImage = fundoConfig.gradiente;
         body.style.backgroundRepeat = 'no-repeat';
@@ -118,12 +119,19 @@ function ListaFilmes({ filmes }) {
         body.style.backgroundPosition = 'center center';
         body.style.backgroundAttachment = 'fixed';
 
+        if (generoAtivo) {
+            body.setAttribute('data-genre-theme', generoAtivo);
+        } else {
+            body.removeAttribute('data-genre-theme');
+        }
+
         return () => {
             body.style.backgroundImage = '';
             body.style.backgroundRepeat = '';
             body.style.backgroundSize = '';
             body.style.backgroundPosition = '';
             body.style.backgroundAttachment = '';
+            body.removeAttribute('data-genre-theme');
         };
     }, [filtros.genero]);
 

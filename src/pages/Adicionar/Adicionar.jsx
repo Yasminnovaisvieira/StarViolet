@@ -11,11 +11,17 @@ import Botao from '../../components/Botao/Botao';
 /* Importando Imagem Preta */
 import imgPreta from "../../assets/ImagensCategorias/imgPreta.png"
 
+/* Lista de gêneros para o select */
+const generosLista = [
+    'Ficção', 'Drama', 'Romance', 'Terror', 'Aventura', 'Fantasia', 'Suspense', 'Comédia'
+];
+
 function Adicionar({ onAdd, isAdmin = false }) {
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
         titulo: '', ano: '', genero: '', diretor: '',
+        produtora: '', 
         atores: '', sinopse: '', poster: ''
     });
 
@@ -96,7 +102,12 @@ function Adicionar({ onAdd, isAdmin = false }) {
                     <div className='ladoALado'>
                         <div className="campoMetade">
                             <label htmlFor="genero">Gênero *</label>
-                            <input id="genero" name="genero" placeholder="Ex: Ficção" value={form.genero} onChange={handleChange} />
+                            <select id="genero" name="genero" value={form.genero} onChange={handleChange}>
+                                <option value="">Selecione</option>
+                                {generosLista.map(g => (
+                                    <option key={g} value={g}>{g}</option>
+                                ))}
+                            </select>
                         </div>
 
                         <div className="campoMetade">
@@ -107,14 +118,19 @@ function Adicionar({ onAdd, isAdmin = false }) {
 
                     <div className='ladoALado'>
                         <div className="campoMetade">
-                            <label htmlFor="atores">Atores (separados por vírgula)</label>
-                            <input id="atores" name="atores" placeholder="Ex: Timothée Chalamet, Zendaya" value={form.atores} onChange={handleChange} />
+                            <label htmlFor="produtora">Produtora</label>
+                            <input id="produtora" name="produtora" placeholder="Ex: Disney" value={form.produtora} onChange={handleChange} />
                         </div>
 
                         <div className="campoMetade">
-                            <label htmlFor="poster">URL do poster</label>
-                            <input id="poster" name="poster" placeholder="http://..." value={form.poster} onChange={handleChange} />
+                            <label htmlFor="atores">Atores (separados por vírgula)</label>
+                            <input id="atores" name="atores" placeholder="Ex: Timothée Chalamet, Zendaya" value={form.atores} onChange={handleChange} />
                         </div>
+                    </div>
+
+                    <div className="campoFullWidth">
+                        <label htmlFor="poster">URL do poster</label>
+                        <input id="poster" name="poster" placeholder="http://..." value={form.poster} onChange={handleChange} />
                     </div>
 
                     <div className="campoFullWidth">

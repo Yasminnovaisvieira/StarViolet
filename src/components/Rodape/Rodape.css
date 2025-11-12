@@ -6,7 +6,7 @@
     width: 100%;
     padding: 3rem 0;
     margin-top: 4rem;
-    background: var(--fundo-transparente-leve);
+    background: var(--tema-rodape-fundo);
     border-top: 1px solid var(--borda-transparente);
 }
 

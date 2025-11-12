@@ -6,7 +6,8 @@
     overflow: hidden;
     transition: transform .18s;
     box-shadow: 0 4px 12px var(--sombra-bem-escura);
-    background: var(--fundo-card-filme);
+    background: var(--branco);
+    color: var(--roxo-mais-escuro);
 }
 
 .cartaoFilme:hover {
@@ -38,7 +39,7 @@
 }
 
 .tituloCartao {
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 0.3rem;
     white-space: nowrap;
@@ -47,9 +48,10 @@
 }
 
 .metaCartao {
-    opacity: 0.8;
     font-size: 0.8rem;
     margin-bottom: 1rem;
+    font-weight: 600;
+
 }
 
 .acaoCartao {
@@ -61,14 +63,14 @@
     padding: 0.8rem;
     font-weight: 600;
     font-size: 1rem;
-    background-color: var(--roxo-mais-claro);
+    background-color: var(--roxo-escuro);
     color: var(--branco);
-    border-radius: 0.7rem;
+    border-radius: 0.5rem;
     text-align: center;
     transition: background-color 0.2s;
 }
 
 .botaoDetalhesCartao:hover {
-    background-color: var(--roxo-bem-claro);
-    color: var(--preto);
+    background-color: var(--roxo-mais-escuro);
+    color: var(--branco);
 }

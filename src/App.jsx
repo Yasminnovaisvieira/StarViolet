@@ -45,7 +45,7 @@ const LayoutPrincipal = ({ auth, setAuth }) => (
         <main className="conteudoPrincipal">
             <Outlet />
         </main>
-        <Rodape />
+        <Rodape auth={auth} />
     </div>
 );
 

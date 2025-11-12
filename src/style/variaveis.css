@@ -21,7 +21,7 @@
     --fundo-gradiente: linear-gradient(180deg, var(--roxo-mais-escuro) 0%, var(--roxo-escuro) 40%, var(--roxo-medio) 100%);
     --fundo-card: rgba(255, 255, 255, 0.04);
     --fundo-card-filme: rgba(0, 0, 0, 0.25);
-    --fundo-input: rgba(0, 0, 0, 0.15);
+    --fundo-input: #00000026;
     --fundo-transparente-mais-leve: rgba(255, 255, 255, 0.119);
     --fundo-transparente-leve: rgba(255, 255, 255, 0.03);
     --fundo-transparente-medio: rgba(255, 255, 255, 0.06);
@@ -47,4 +47,9 @@
     --gradiente-cabecalho: linear-gradient(90deg, --roxo-escuro , --roxo-800: #170629);
     --gradiente-carrossel: linear-gradient(90deg, rgba(10,5,20,0.6), rgba(40,8,80,0.2));
     --gradiente-logo: linear-gradient(45deg, var(--roxo-700), var(--roxo-600));
+
+    --tema-cabecalho-fundo: var(--gradiente-cabecalho);
+    --tema-rodape-fundo: #280F43;
+    --tema-filtro-fundo: #280F43;
+    --tema-filtro-input: #1B0D2A;
 }

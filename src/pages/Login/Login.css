@@ -15,6 +15,7 @@
     gap: 1rem;
     width: 100%;
     box-shadow: 0 4px 8px var(--sombra-bem-escura);
+    background-color: var(--roxo-mais-claro) !important;
 }
 
 .containerLogoLogin {

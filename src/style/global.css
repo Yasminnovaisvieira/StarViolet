@@ -84,3 +84,59 @@ textarea {
     min-height: 150px;
     resize: none;
 }
+
+body[data-genre-theme="Terror"] {
+    --tema-cabecalho-fundo: #000000;
+    --tema-rodape-fundo: #2E2E2E;
+    --tema-filtro-fundo: #2E2E2E;
+    --tema-filtro-input: #161616;
+}
+
+body[data-genre-theme="Ficção"] {
+    --tema-cabecalho-fundo: #040A16;
+    --tema-rodape-fundo: #0B1631;
+    --tema-filtro-fundo: #0B1631;
+    --tema-filtro-input: #061025;
+}
+
+body[data-genre-theme="Drama"] {
+    --tema-cabecalho-fundo: #1A0316;
+    --tema-rodape-fundo: #2D0D28;
+    --tema-filtro-fundo: #2D0D28;
+    --tema-filtro-input: #25051F;
+}
+
+body[data-genre-theme="Romance"] {
+    --tema-cabecalho-fundo: #10031A;
+    --tema-rodape-fundo: #280841;
+    --tema-filtro-fundo: #280841;
+    --tema-filtro-input: #1C062E;
+}
+
+body[data-genre-theme="Aventura"] {
+    --tema-cabecalho-fundo: #030D0F;
+    --tema-rodape-fundo: #102225;
+    --tema-filtro-fundo: #102225;
+    --tema-filtro-input: #091A1D;
+}
+
+body[data-genre-theme="Fantasia"] {
+    --tema-cabecalho-fundo: #180505;
+    --tema-rodape-fundo: #351313;
+    --tema-filtro-fundo: #351313;
+    --tema-filtro-input: #200606;
+}
+
+body[data-genre-theme="Suspense"] {
+    --tema-cabecalho-fundo: #060303;
+    --tema-rodape-fundo: #321A1A;
+    --tema-filtro-fundo: #321A1A;
+    --tema-filtro-input: #130909;
+}
+
+body[data-genre-theme="Comédia"] {
+    --tema-cabecalho-fundo: #120D00;
+    --tema-rodape-fundo: #2D2100;
+    --tema-filtro-fundo: #2D2100;
+    --tema-filtro-input: #181200;
+}

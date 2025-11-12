@@ -8,15 +8,25 @@
     margin-bottom: 1rem;
 }
 
+.containerCarrosselManual {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
 .listaHorizontalCategorias {
     display: flex;
     gap: 1.5rem;
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 1.5rem;
+    flex: 1;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--roxo-mais-claro) var(--fundo-card);
+    scrollbar-width: none;
+}
+
+.listaHorizontalCategorias::-webkit-scrollbar {
+    display: none;
 }
 
 .itemListaCategoria {
@@ -24,22 +34,32 @@
     width: 180px;
 }
 
-.listaHorizontalCategorias::-webkit-scrollbar {
-    height: 12px;
+.botaoScroll {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--borda-transparente);
+    color: var(--branco);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s ease;
+    transform: translateY(-0.75rem); 
 }
 
-.listaHorizontalCategorias::-webkit-scrollbar-track {
-    background: var(--fundo-card);
-    border-radius: 10px;
-    margin: 0 2rem;
+.botaoScroll:hover {
+    background: var(--branco);
+    color: var(--roxo-escuro);
+    transform: translateY(-0.75rem) scale(1.05);
 }
 
-.listaHorizontalCategorias::-webkit-scrollbar-thumb {
-    background-color: var(--roxo-mais-claro);
-    border-radius: 0.5rem;
-    transition: background-color 0.2s ease;
+.scrollEsquerda {
+    margin-right: 0.5rem;
 }
 
-.listaHorizontalCategorias::-webkit-scrollbar-thumb:hover {
-    background-color: var(--roxo-bem-claro);
+.scrollDireita {
+    margin-left: 0.5rem;
 }
