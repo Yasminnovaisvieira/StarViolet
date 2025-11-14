@@ -1,15 +1,15 @@
-# server.py
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 import json
 
-import endpoints.filme as filme
-# Importa APENAS logar_usuario
-from autenticacao.auth_endpoint import logar_usuario
-from autenticacao.auth_utils import obter_token_do_header, verificar_token
+import endpoints.filme as filme # Importa todas as funções de 'filme.py' e as agrupa sob o nome 'filme'
+from autenticacao.auth_endpoint import logar_usuario # Importa APENAS a função específica de login
+from autenticacao.auth_utils import obter_token_do_header, verificar_token # Importa as funções auxiliares para lidar com o token JWT
 
+# Para lidar com todas as requisições que chegam
 class MyHandler(BaseHTTPRequestHandler):
 
+    # Função auxiliar para enviar uma resposta JSON padronizada
     def _send_json(self, data, status=200):
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
@@ -26,6 +26,7 @@ class MyHandler(BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
         self.end_headers()
 
+    # Lida com requisições GET
     def do_GET(self):
         token = obter_token_do_header(self.headers)
         payload = verificar_token(token)
@@ -65,17 +66,17 @@ class MyHandler(BaseHTTPRequestHandler):
             self._send_json(json.dumps({"error": "Corpo da requisição inválido"}), 400)
             return
 
-        # --- Rota Pública (Apenas Login) ---
+        # A rota de login é a ÚNICA rota POST que NÃO precisa de token
         if parsed.path == "/login":
             data, status = logar_usuario(body)
             self._send_json(data, status)
             return
 
-        # --- Rotas Privadas (Exigem Token) ---
+        # Ponto de Controle de Segurança
         token = obter_token_do_header(self.headers)
         payload = verificar_token(token)
         if not payload:
-            self._send_json(json.dumps({"error": "Token inválido ou ausente"}), 401)
+            self._send_json(json.dumps({"error": "Token inválido ou ausente!"}), 401)
             return
             
         # Rota: POST /filmes
@@ -84,13 +85,13 @@ class MyHandler(BaseHTTPRequestHandler):
             self._send_json(data, status)
             return
 
-        self._send_json(json.dumps({"error": "Rota POST não encontrada"}), 404)
+        self._send_json(json.dumps({"error": "Rota POST não encontrada!"}), 404)
    
     def do_PATCH(self):
         token = obter_token_do_header(self.headers)
         payload = verificar_token(token)
         if not payload:
-            self._send_json(json.dumps({"error": "Token inválido ou ausente"}), 401)
+            self._send_json(json.dumps({"error": "Token inválido ou ausente!"}), 401)
             return
             
         parsed = urlparse(self.path)
@@ -116,7 +117,7 @@ class MyHandler(BaseHTTPRequestHandler):
         token = obter_token_do_header(self.headers)
         payload = verificar_token(token)
         
-        # Proteção: Apenas Admin pode deletar (Req)
+        # Apenas Admin pode deletar
         if not payload or payload['role'] != 'admin':
             self._send_json(json.dumps({"error": "Acesso negado: Requer privilégios de Administrador"}), 403)
             return
@@ -133,9 +134,9 @@ class MyHandler(BaseHTTPRequestHandler):
             
         self._send_json(json.dumps({"error": "Rota DELETE não encontrada"}), 404)
 
-# --- Ponto de Entrada ---
+# Quando o Back rodar
 def run_server(host="localhost", port=8080):
     server_address = (host, port)
     httpd = HTTPServer(server_address, MyHandler)
-    print(f"Servidor StarViolet (Python Puro) rodando em http://{host}:{port}")
+    print(f"Servidor StarViolet rodando em http://{host}:{port}")
     httpd.serve_forever()

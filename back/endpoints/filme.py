@@ -4,6 +4,7 @@ from endpoints.helpers import find_or_create, get_ids_from_names_string, link_ma
 
 DEFAULT_POSTER_URL = "/imgPreta.png"
 
+# Junta todas as tabelas relacionadas ao filme para retornar um objeto "completo" em uma única consulta.
 def _get_base_query():
     return """
         SELECT 
@@ -29,21 +30,24 @@ def _get_base_query():
     """
 
 def _construir_query_filtro(filters, payload):
+    # Verifica se o usuário logado é um admin
     is_admin = payload['role'] == 'admin'
     
+    # Pega a query principal
     query = _get_base_query()
     
     where_clauses = []
     params = []
     
-    # Lógica de Status: Admin vê tudo, usuário vê 'aprovado'
+    # Lógica de Status
     if not is_admin:
+        # Se NÃO for admin, o usuário comum SÓ PODE ver filmes 'aprovado'
         where_clauses.append("f.status_aprovacao = 'aprovado'")
 
     # Filtros
     if 'q' in filters and filters['q'][0]:
         where_clauses.append("f.titulo LIKE %s")
-        params.append(f"%{filters['q'][0]}%")
+        params.append(f"%{filters['q'][0]}%") # '%' para busca 'LIKE'
 
     if 'ano' in filters and filters['ano'][0]:
         where_clauses.append("f.ano = %s")
@@ -61,6 +65,7 @@ def _construir_query_filtro(filters, payload):
         where_clauses.append("a.nome LIKE %s")
         params.append(f"%{filters['ator'][0]}%")
     
+    # Se houver pelo menos uma condição na lista
     if where_clauses:
         query += " WHERE " + " AND ".join(where_clauses)
         
@@ -74,13 +79,16 @@ def get_filmes(filters, payload):
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
         
+        # Monta a query dinâmica com base nos filtros e permissões do usuário
         final_query, params = _construir_query_filtro(filters, payload)
         
+        # Executa a query no banco
         cursor.execute(final_query, params)
-        data = cursor.fetchall()
+        data = cursor.fetchall() # Pega todos os resultados
         
         cursor.close()
         return json.dumps(data), 200
+    
     except Exception as e:
         print(f"Erro em get_filmes: {e}")
         return json.dumps({"error": str(e)}), 500
@@ -95,7 +103,7 @@ def get_filme_by_id(id_filme, payload):
         params = (id_filme,)
         
         cursor.execute(query, params)
-        data = cursor.fetchone()
+        data = cursor.fetchone() # Pega o (único) resultado
         cursor.close()
         
         if data:
@@ -103,6 +111,7 @@ def get_filme_by_id(id_filme, payload):
             is_admin = payload['role'] == 'admin'
             if not is_admin and data['status_aprovacao'] != 'aprovado':
                  return json.dumps({"error": "Filme não encontrado ou pendente"}), 404
+            # Finge que não existe
             return json.dumps(data), 200
         else:
             return json.dumps({"error": "Filme não encontrado"}), 404
@@ -117,9 +126,9 @@ def post_filme(body, payload):
         produtora_id = find_or_create(cursor, 'produtora', 'nome', body.get('produtora'))
 
         if payload['role'] == 'admin':
-            status = 'aprovado'
+            status = 'aprovado' # Admin cria filme já aprovado
         else:
-            status = 'pendente_adicao'
+            status = 'pendente_adicao' # Usuário comum cria filme como pendente
 
         poster_url = body.get('poster')
         if not poster_url or not poster_url.strip():
@@ -227,15 +236,16 @@ def patch_filme(id_filme, body, payload):
             if diretor_id:
                 link_many_to_many(cursor_writer, 'filme_diretor', id_filme, 'id_diretor', [diretor_id])
 
-        conn.commit()
+        conn.commit() # Salva as mudanças
         cursor.close()
         cursor_writer.close()
 
+        # Retorna o filme atualizado
         data, status_code = get_filme_by_id(id_filme, payload)
         return data, 200
 
     except Exception as e:
-        conn.rollback()
+        conn.rollback() # Desfaz tudo se der erro
         cursor.close()
         print(f"Erro em patch_filme: {e}")
         return json.dumps({"error": str(e)}), 500
@@ -248,6 +258,7 @@ def delete_filme(id_filme):
         cursor.execute("DELETE FROM filme WHERE id_filme = %s", (id_filme,))
         conn.commit()
         
+        # 'rowcount' diz quantas linhas foram deletadas
         if cursor.rowcount == 0:
             raise Exception("Filme não encontrado")
             
@@ -255,7 +266,7 @@ def delete_filme(id_filme):
         return json.dumps({"message": "Filme excluido com sucesso"}), 200
     
     except Exception as e:
-        conn.rollback()
+        conn.rollback() # Desfaz se der erro
         cursor.close()
         print(f"Erro em delete_filme: {e}")
         return json.dumps({"error": str(e)}), 500

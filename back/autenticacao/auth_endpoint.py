@@ -8,27 +8,28 @@ def logar_usuario(body):
         email = body["email"]
         senha = body["senha"]
     except KeyError:
-        return json.dumps({"error": "Email e senha são obrigatórios"}), 400
+        return json.dumps({"error": "Email e senha são obrigatórios!"}), 400
     
+    # Busca o usuário no banco de dados usando o email fornecido
     user = db_buscar_usuario_por_email(email)
     
     if not user:
-        return json.dumps({"error": "Credenciais inválidas"}), 401
+        return json.dumps({"error": "Credenciais inválidas!"}), 401
     
     if not verificar_senha(senha, user["senha"]):
-        return json.dumps({"error": "Credenciais inválidas"}), 401
+        return json.dumps({"error": "Credenciais inválidas!"}), 401
     
-    # Cria o token
+    # Cria o token de acesso se o usuário existir
     token = criar_token(user["id_usuario"], user["tipo_usuario"], user["nome"])
     
     if not token:
-        return json.dumps({"error": "Erro ao gerar token"}), 500
+        return json.dumps({"error": "Erro ao gerar token!"}), 500
     
-    # Retorna o JSON exato que o frontend espera
+    # Retorna o JSON exato que o frontend espera se der tudo certo
     return json.dumps({
         "access_token": token,
         "usuario": {
             "nome": user["nome"],
             "role": "admin" if user["tipo_usuario"] == "administrador" else "user"
         }
-    }), 200
+    }), 200 # Retorna mensagem de sucesso

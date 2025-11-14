@@ -19,6 +19,7 @@ def get_connection():
                 password="root"
             )
             print("CONEXAO SINGLETON COM O BANCO CRIADA!")
+            
         except mysql.connector.Error as err:
             print(f"Falha de conexão com o banco: {err}")
             return None

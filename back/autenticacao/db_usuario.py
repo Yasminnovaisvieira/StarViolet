@@ -3,6 +3,7 @@ from db import get_connection
 # Função para buscar o usuário no banco
 def db_buscar_usuario_por_email(email):
     try:
+        # Pede uma nova conexão com o banco de dados
         conn = get_connection()
 
         if conn is None: 
