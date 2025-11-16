@@ -38,8 +38,14 @@ CREATE TABLE filme (
     sinopse TEXT,
     poster VARCHAR(255),
     produtora_id INT,
+    criador_id INT,
+    editor_id INT,
+    aprovado_por INT,
     status_aprovacao ENUM('aprovado', 'pendente_adicao', 'pendente_edicao') NOT NULL DEFAULT 'pendente_adicao',
-    FOREIGN KEY (produtora_id) REFERENCES produtora(id_produtora)
+    FOREIGN KEY (produtora_id) REFERENCES produtora(id_produtora),
+    FOREIGN KEY (criador_id) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (editor_id) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (aprovado_por) REFERENCES usuario(id_usuario)
 );
 
 -- Tabelas intermediárias
