@@ -66,18 +66,20 @@ Siga os passos abaixo para rodar o projeto localmente.
 * [Node.js (LTS)](https://nodejs.org/)
 * [MySQL Server](https://dev.mysql.com/downloads/mysql/)
 
-### 2. Banco de Dados (MySQL)
-1.  Inicie o seu servidor MySQL.
-2.  Crie o banco de dados:
-    ```sql
-    CREATE DATABASE IF NOT EXISTS starviolet;
-    ```
-   
-3.  Execute o script `banco/banco_filmes.sql` no seu cliente MySQL (Workbench, DBeaver, etc.) para criar todas as tabelas e popular o banco com dados iniciais.
-    ```bash
-    mysql -u root -p starviolet < banco/banco_filmes.sql
-    ```
-4.  **Importante:** O backend está configurado para se conectar como `user="root"` e `password="root"` no `localhost:3306`. Se suas credenciais forem diferentes, ajuste o arquivo `back/db.py`.
+### 2. Banco de Dados (MySQL Workbench)
+
+1.  Inicie o seu servidor MySQL e abra o **MySQL Workbench**.
+2.  Conecte-se à sua instância do MySQL (a conexão padrão geralmente é `localhost` na porta 3306).
+3.  No menu superior, vá em **File** > **Open SQL Script...**.
+4.  Navegue até a pasta do projeto e selecione o arquivo `banco/banco_filmes.sql`.
+5.  O script será aberto em uma nova aba. Clique no **ícone de raio (⚡)** (Execute SQL Script) na barra de ferramentas para executar o script completo.
+6.  Este único script fará tudo:
+    * Criará o banco de dados `starviolet` (se ele não existir).
+    * Selecionará o banco `starviolet`.
+    * Criará todas as tabelas (`filme`, `usuario`, `genero`, etc.).
+    * Inserirá os dados iniciais (contas de admin/usuário, filmes de exemplo, etc.).
+7.  Quando a execução terminar (verifique o painel "Action Output" na parte inferior), clique no **ícone de "refresh"** (duas setas circulares) no painel "SCHEMAS" à esquerda. Você deverá ver o novo banco `starviolet` aparecer na lista.
+8.  **Importante:** O backend está configurado para se conectar como `user="root"` e `password="root"` no `localhost:3306`. Se as credenciais que você usa no Workbench forem diferentes, **você deve** ajustar o arquivo `back/db.py` com essas mesmas credenciais para que o servidor Python consiga se conectar.
 
 ### 3. Backend (Servidor Python)
 1.  Dentro do VSCode, navegue até a pasta do backend:
