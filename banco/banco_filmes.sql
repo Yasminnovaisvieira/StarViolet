@@ -77,12 +77,12 @@ CREATE TABLE filme_diretor (
 -- ON DUPLICATE KEY UPDATE = Em vez de gerar um erro, ele atualiza os campos específicados.
 INSERT INTO usuario (nome, email, senha, tipo_usuario) 
 VALUES 
-    ('Admin', 'admin@starviolet.com', '$2a$12$bacSKihAXbqQrzxx3kbeJOl8/dNbuOIbcvULH7BYAEAjfI4vUkLLu', 'administrador')
+    ('Admin', 'admin@starviolet.com', '$2a$12$dS5WrUoduUoZqxOjJ6OvPOFYHalXDvyGeqpWNQ8B8FWHi2bG9j14m', 'administrador') -- senha123
 ON DUPLICATE KEY UPDATE nome = 'Admin', tipo_usuario = 'administrador';
 
 INSERT INTO usuario (nome, email, senha, tipo_usuario) 
 VALUES 
-    ('Usuário', 'user@starviolet.com', '$2a$12$bacSKihAXbqQrzxx3kbeJOl8/dNbuOIbcvULH7BYAEAjfI4vUkLLu', 'comum')
+    ('Usuário', 'user@starviolet.com', '$2a$12$dS5WrUoduUoZqxOjJ6OvPOFYHalXDvyGeqpWNQ8B8FWHi2bG9j14m', 'comum') -- senha123
 ON DUPLICATE KEY UPDATE nome = 'Usuário', tipo_usuario = 'comum';
 
 -- Inserindo produtoras
