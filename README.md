@@ -136,7 +136,7 @@ Você pode usar as seguintes contas para testar os diferentes níveis de acesso:
 
 ## 🎨 Protótipo (Figma)
 
-O design da interface e os protótipos de média/alta fidelidade do projeto `StarViolet` foram desenvolvidos no Figma. Você pode visualiza-lo clicando no emblema abaixo:
+O design da interface e os protótipos de média fidelidade do projeto `StarViolet` foram desenvolvidos no Figma. Você pode visualiza-lo clicando no emblema abaixo:
 
 <a href="https://www.figma.com/design/R2VMr5cdw08ziJFXH8CU8m/StarViolet?node-id=0-1&p=f&t=NodUcD2RSPvDxP3c-0" target="_blank" rel="noopener noreferrer">
     <img src="https://img.shields.io/badge/Figma-910F60?style=for-the-badge&logo=figma&logoColor=white" alt="Ver Protótipo no Figma" />
